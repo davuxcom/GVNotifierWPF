@@ -1,0 +1,607 @@
+﻿<Window x:Class="GVNotifier.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="" Height="382" Width="260" Icon="/GVNotifier.net;component/Images/gv_xp.ico"
+        FontFamily="Segoe UI, Verdana"
+        SourceInitialized="Window_SourceInitialized"
+        PreviewKeyDown="selfwin_PreviewKeyDown"
+        ContentRendered="Window_ContentRendered"
+        Deactivated="Window_Deactivated"
+        xmlns:my="clr-namespace:GVNotifier"
+        my:WindowPos.Save="True"
+        Closing="Window_Closing"
+        LostFocus="Window_LostFocus"
+        Name="selfwin"
+        Loaded="Window_Loaded"
+        ResizeMode="CanResize">
+    <Window.Resources>
+        <Style TargetType="{x:Type Hyperlink}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#3399FF" />
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Foreground" Value="#0066CC" />
+        </Style>
+        <Style x:Key="AeroListview" TargetType="{x:Type ListViewItem}">
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style>
+                        <Setter Property="ListViewItem.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle Margin="2" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 2" SnapsToDevicePixels="true" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Margin" Value="0,0,0,1" />
+            <Setter Property="Padding" Value="5,2,5,2" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" CornerRadius="2" SnapsToDevicePixels="true">
+                            <Border Name="InnerBorder" SnapsToDevicePixels="True" CornerRadius="1" BorderThickness="1">
+                                <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <LinearGradientBrush.GradientStops>
+                                                <GradientStop Color="#F5F9FD" Offset="0.0" />
+                                                <GradientStop Color="#F2F7FD" Offset="0.5" />
+                                                <GradientStop Color="#F1F7FD" Offset="0.5" />
+                                                <GradientStop Color="#EBF3FD" Offset="1" />
+                                            </LinearGradientBrush.GradientStops>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="BorderBrush" Value="#B8D6FB" />
+                                <Setter TargetName="InnerBorder" Property="BorderBrush" Value="#F2F7FE" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <LinearGradientBrush.GradientStops>
+                                                <GradientStop Color="#DCEAFC" Offset="0.0" />
+                                                <GradientStop Color="#D3E5FC" Offset="0.4" />
+                                                <GradientStop Color="#C8DFFC" Offset="0.7" />
+                                                <GradientStop Color="#C1DBFC" Offset="1" />
+                                            </LinearGradientBrush.GradientStops>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="BorderBrush" Value="#7DA2CE" />
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true" />
+                                    <Condition Property="IsMouseOver" Value="true" />
+                                </MultiTrigger.Conditions>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Value="Gray" Property="Foreground" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="AeroTab" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid VerticalAlignment="Top" Margin="0" SnapsToDevicePixels="True">
+                            <Border Name="BorderOuter"
+                             BorderThickness="0,1,0,0"
+                             BorderBrush="Gray"
+                                    SnapsToDevicePixels="True">
+
+
+                                <Border 
+             Name="Border"
+                                SnapsToDevicePixels="True"
+                                Margin="0,0,0,3"
+             CornerRadius="0,0,2,2" 
+             Background="Transparent"
+             BorderBrush="Transparent" 
+             BorderThickness="1,0,1,1" 
+              >
+                                    <Border 
+             Name="BorderInner"
+                                  SnapsToDevicePixels="True"
+                               CornerRadius="0,0,2,2" 
+             Background="Transparent"
+             BorderBrush="Transparent" 
+             BorderThickness="1,0,1,1" 
+             Padding="6,4,6,4"
+              >
+                                        <ContentPresenter x:Name="ContentSite"
+               VerticalAlignment="Top"
+                                                      
+               HorizontalAlignment="Center"
+               ContentSource="Content"
+                                                      
+               Margin="0">
+                                            <ContentPresenter.BitmapEffect>
+                                                <OuterGlowBitmapEffect Opacity=".7" GlowColor="#eeeeee" GlowSize="3"></OuterGlowBitmapEffect>
+                                            </ContentPresenter.BitmapEffect>
+                                        </ContentPresenter>
+                                    </Border>
+                                </Border>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Active">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Gray" />
+                                <Setter TargetName="Border" Property="Background" Value="White" />
+                                <Setter TargetName="BorderOuter" Property="BorderThickness" Value="0" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Gray" />
+                                <Setter TargetName="BorderInner" Property="BorderBrush" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type TextBox}" x:Key="OT">
+            <Setter Property="Opacity" Value="0.6"></Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.5"
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 From="0.6"
+                                                 To="1.0">
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.5"
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 From="1.0"
+                                                 To="0.6">
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+
+
+                <!--
+                <Trigger Property="IsMouseOver" Value="True">
+
+                    <Setter Property="Opacity" Value=".95"></Setter>
+                </Trigger>
+                -->
+            </Style.Triggers>
+        </Style>
+
+        <my:ImageConverter x:Key="img" />
+        <my:CallTypeTextConverter x:Key="CallTypeTextConverter" />
+        <my:CallTypeColorConverter x:Key="CallTypeColorConverter" />
+        <my:FriendlyTimeDescription x:Key="FriendlyTimeDescription" />
+        <my:BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+        <Style x:Key="promptTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <TextBlock x:Name="TextPrompt" Text="{TemplateBinding Tag}" Visibility="Collapsed" Focusable="False"  Foreground="Silver"></TextBlock>
+                            <ScrollViewer />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsFocused" Value="False"></Condition>
+                                    <Condition Property="Text" Value=""></Condition>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Visibility" TargetName="TextPrompt" Value="Visible"></Setter>
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="NoHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <Grid Name="LoggedInPage" Visibility="Hidden">
+            <DockPanel LastChildFill="True">
+                <Grid DockPanel.Dock="Top" Margin="0,0,0,3">
+                    <Border BorderBrush="#40FFFFFF" BorderThickness="1" CornerRadius="2">
+                        <Border BorderBrush="#80000000" BorderThickness="1,1,0,0" CornerRadius="2">
+                            <Border BorderBrush="#30000000" BorderThickness="0,0,1,1" CornerRadius="2">
+                                <Border BorderBrush="#F0FFFFFF" BorderThickness="1" CornerRadius="1">
+
+                                    <Grid  Name="grdSerch" Background="#C0FFFFFF">
+                                        <!--  -->
+                                        <TextBlock Name="txtSearchPrompt" Margin="6,0,0,0" FontStyle="Italic">
+                                            Search Contacts and Numbers
+                                        </TextBlock>
+                                        <!--
+                                        <Image Height="16" Width="16" Source="/GVNotifier.net;component/Images/search.png"
+                                            HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            />
+                                        -->
+                                        <!-- Background="#C0FFFFFF" -->
+                                        <TextBox Style="{StaticResource OT}" PreviewKeyDown="txtSearch_KeyDown" KeyDown="txtSearch_KeyDown"   BorderThickness="0" Name="txtSearch" TextChanged="txtSearch_TextChanged">
+                                            <TextBox.Background>
+                                                <!--<SolidColorBrush Color="#C0FFFFFF" />-->
+                                                <ImageBrush Stretch="None" AlignmentX="Right" AlignmentY="Center" ImageSource="/GVNotifier.net;component/Images/search.png" />
+
+                                            </TextBox.Background>
+                                        </TextBox>
+                                    </Grid>
+                                </Border>
+                            </Border>
+                        </Border>
+                    </Border>
+                </Grid>
+                <!--
+                <DockPanel Name="bottomPanel" DockPanel.Dock="Bottom">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button FontWeight="Bold" Padding="5,0,5,0" Margin="4,3,4,0" Content="Contacts" Name="btnContactsView" Click="btnContactsView_Click" />
+                        <Button Padding="5,0,5,0" Margin="4,3,4,0" Content="Calls" Name="btnCallView" Click="btnCallView_Click" />
+                        <Button Padding="5,0,5,0" Margin="4,3,4,0" Content="Voicemail" Name="btnVoicemailView" Click="btnVoicemailView_Click" />
+                    </StackPanel>
+                </DockPanel>
+                -->
+                <Border DockPanel.Dock="Bottom"  Name="bottomPanel" SnapsToDevicePixels="True" Margin="0" Padding="0"  BorderThickness="0,0,0,0" BorderBrush="Gray">
+
+                    <Grid  SnapsToDevicePixels="True" Margin="0" Grid.Row="0" Name="stkMenu">
+
+
+                        <DockPanel>
+
+                            <Button Style="{DynamicResource AeroTab}" Tag="Active" FontWeight="Bold" Content="Contacts" Name="btnContactsView" Click="btnContactsView_Click" />
+                            <Button Style="{DynamicResource AeroTab}"  Content="Call History" Name="btnCallView" Click="btnCallView_Click" />
+                            <Button Style="{DynamicResource AeroTab}" Content="Voicemail" Name="btnVoicemailView" Click="btnVoicemailView_Click" />
+                            <!--
+                            <Button Style="{DynamicResource AeroTab}" Click="Button_Click" DockPanel.Dock="Left" Content="Contacts" />
+                            <Button Style="{DynamicResource AeroTab}" Click="Button_Click" DockPanel.Dock="Left" Content="Call History" />
+                            <Button Style="{DynamicResource AeroTab}" Click="Button_Click" DockPanel.Dock="Left" Content="Voicemail" />
+                            
+                            -->
+                            <Border BorderBrush="Gray" BorderThickness="0,1,0,0">
+                                <Label />
+                            </Border>
+
+                        </DockPanel>
+
+
+
+
+
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStopCollection>
+                                        <GradientStop Color="White" Offset="0"/>
+                                        <GradientStop Color="#aaeeeeee" Offset=".7"/>
+                                        <GradientStop Color="Transparent" Offset="1.0"/>
+                                    </GradientStopCollection>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                    </Grid>
+                </Border>
+
+
+                <Grid>
+
+                    <ListView VirtualizingStackPanel.IsVirtualizing="False"  ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                              Name="lsvContacts" ContextMenuOpening="mnuContactsList_ContextMenuOpening"
+                              BorderThickness="0,1,0,0"
+                              >
+                        <ListView.Resources>
+                            <Style  BasedOn="{StaticResource AeroListview}" TargetType="{x:Type ListViewItem}">
+                                <EventSetter Event="MouseLeftButtonUp" Handler="Contact_Click" />
+                                <EventSetter Event="PreviewKeyDown" Handler="ListViewItem_PreviewKeyDown" />
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.ContextMenu>
+                            <ContextMenu Name="mnuContactsList">
+                                <MenuItem Name="mnuPinUnpin"  Click="mnuPinUnpin_Click" />
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+
+                        <ListView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontSize="15" Margin="8,4,4,4" FontWeight="Bold" Text="{Binding Path=Name, Mode=OneWay}"/>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ListView.GroupStyle>
+
+                        <ListView.View>
+                            <GridView ColumnHeaderContainerStyle="{StaticResource NoHeaderStyle}">
+                                <GridViewColumn Width="Auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Margin="0" MaxHeight="{Binding Path=MaxIconSize}" Source="{Binding Path=ImageLocation, Mode=OneWay, Converter={StaticResource img}}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="Auto" x:Name="lsvNameCol">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+
+
+                    <ListView 
+                     BorderThickness="0,1,0,0"
+                    VirtualizingStackPanel.IsVirtualizing="False"
+                    Visibility="Collapsed" 
+                    ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                    SelectionChanged="lsvVM_SelectionChanged"
+                    Name="lsvVM"
+                    SizeChanged="lsvVM_SizeChanged"
+                     HorizontalContentAlignment="Stretch"
+                    ContextMenuOpening="mnuContactsList_ContextMenuOpening">
+                        <ListView.Resources>
+
+                            <Style  BasedOn="{StaticResource AeroListview}" TargetType="{x:Type ListViewItem}">
+                                <EventSetter Event="MouseDoubleClick" Handler="Voicemail_Click" />
+                                <EventSetter Event="PreviewKeyDown" Handler="Voicemail_ListViewItem_PreviewKeyDown" />
+
+                            </Style>
+
+                        </ListView.Resources>
+                        <ListView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontSize="15" Margin="8,4,4,4" FontWeight="Bold" Text="{Binding Path=Name, Mode=OneWay}"/>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ListView.GroupStyle>
+
+                        <ListView.View>
+                            <GridView ColumnHeaderContainerStyle="{StaticResource NoHeaderStyle}" >
+                                <GridViewColumn Width="Auto" x:Name="lsvNameColVM">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+
+                                            <StackPanel Orientation="Vertical">
+                                                <Grid Width="9999" />
+                                                <DockPanel>
+                                                    <Image DockPanel.Dock="Left" Margin="0" MaxHeight="32" Source="{Binding Path=ImageLocation, Converter={StaticResource img}}" />
+                                                    <DockPanel Margin="14,0,0,0">
+                                                        <TextBlock FontWeight="Bold" Margin="0" DockPanel.Dock="Top" Text="{Binding Path=Name}" />
+                                                        <TextBlock Margin="0" VerticalAlignment="Top" DockPanel.Dock="Bottom" Text="{Binding Path=Time,Converter={StaticResource FriendlyTimeDescription}}" />
+                                                    </DockPanel>
+                                                </DockPanel>
+                                                <TextBlock 
+                                                HorizontalAlignment="Stretch"
+                                                Margin="4" TextWrapping="Wrap" 
+                                                Text="{Binding Path=Text}" />
+
+                                                <Grid
+                                                Visibility="{Binding Converter={StaticResource BooleanToVisibility}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsSelected}">
+                                                    <DockPanel Margin="10,5,20,5">
+                                                        <Button DockPanel.Dock="Left"  Tag="{Binding}" 
+                                                            VerticalAlignment="Center"
+                                                            Margin="5" Name="PlayPause" Click="PlayPause_Click">
+                                                            <Button.Content>
+                                                                Play
+                                                            </Button.Content>
+                                                        </Button>
+                                                        <Label DockPanel.Dock="Right" Margin="0" 
+                                                           VerticalAlignment="Center"
+                                                            Content="{Binding ElementName=selfwin, Path=VmPlayerString}" />
+
+                                                        <ProgressBar Name="vmProgress" 
+                                                                    Height="10"
+                                                                    MouseDown="vmProgress_MouseDown" 
+                                                                    Maximum="{Binding ElementName=selfwin, Path=VmPlayerMax}" Value="{Binding ElementName=selfwin, Path=VmPlayerPosition}" 
+                                                                    HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Center"                                             
+                                                    />
+                                                    </DockPanel>
+                                                </Grid>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+
+                    </ListView>
+
+
+
+                    <ListView 
+                         BorderThickness="0,1,0,0"
+                        VirtualizingStackPanel.IsVirtualizing="False"
+                    Visibility="Collapsed" 
+                    ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                    Name="lsvCalls"
+                     HorizontalContentAlignment="Stretch"
+                    ContextMenuOpening="mnuContactsList_ContextMenuOpening">
+                        <ListView.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="AutomationProperties.Name" Value="{Binding Path=Name}"/>
+                            </Style>
+                            <Style BasedOn="{StaticResource AeroListview}" TargetType="{x:Type ListViewItem}">
+                                <EventSetter Event="MouseDoubleClick" Handler="Call_Click" />
+                                <EventSetter Event="PreviewKeyDown" Handler="Calls_ListViewItem_PreviewKeyDown" />
+                            </Style>
+                        </ListView.Resources>
+
+                        <ListView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontSize="15" Margin="8,4,4,4" FontWeight="Bold" Text="{Binding Path=Name, Mode=OneWay}"/>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ListView.GroupStyle>
+
+                        <ListView.View>
+                            <GridView ColumnHeaderContainerStyle="{StaticResource NoHeaderStyle}" >
+
+                                <GridViewColumn Width="Auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Margin="0" MaxHeight="32" Source="{Binding Path=ImageLocation, Mode=OneWay, Converter={StaticResource img}}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Width="Auto" x:Name="lsvNameColCalls">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <DockPanel VerticalAlignment="Center">
+                                                <DockPanel Margin="0" DockPanel.Dock="Top">
+                                                    <TextBlock FontWeight="Bold" Margin="0,4,4,0" DockPanel.Dock="Left" Text="{Binding Path=Name}"  AutomationProperties.Name="{Binding Path=Name}" />
+
+                                                </DockPanel>
+                                                <DockPanel DockPanel.Dock="Bottom">
+                                                    <TextBlock Margin="0" DockPanel.Dock="Left"
+                                                           Foreground="{Binding Path=MessageType,Converter={StaticResource CallTypeColorConverter}}"
+                                                           Text="{Binding Path=MessageType,Converter={StaticResource CallTypeTextConverter}}" />
+                                                    <TextBlock Margin="4,0,0,0" DockPanel.Dock="Right" Text="{Binding Path=Time,Converter={StaticResource FriendlyTimeDescription}}" />
+                                                </DockPanel>
+
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+
+                    </ListView>
+                </Grid>
+            </DockPanel>
+
+        </Grid>
+
+        <Grid Name="LoginPage"  Visibility="Visible">
+
+            <DockPanel LastChildFill="True">
+                <Grid Height="28" Name="gLoginTop" DockPanel.Dock="Top">
+                    <TextBlock  DockPanel.Dock="Top" Foreground="Black" VerticalAlignment="Center" TextAlignment="Center" FontSize="14">
+                        <TextBlock.BitmapEffect>
+
+                            <OuterGlowBitmapEffect Opacity=".7" GlowColor="#eeeeee" GlowSize="9"></OuterGlowBitmapEffect>
+                        </TextBlock.BitmapEffect>
+                        <TextBlock.Text>
+                        GVNotifier 
+                        </TextBlock.Text>
+
+                    </TextBlock>
+                </Grid>
+
+                <Grid>
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0,0.1" EndPoint="0,0.5">
+                            <LinearGradientBrush.GradientStops>
+                                <GradientStopCollection>
+                                    <GradientStop Color="#F1F6FB"  Offset="0"/>
+                                    <GradientStop Color="#FFFFFF"  Offset=".5"/>
+                                    <GradientStop Color="#F1F6FB" Offset="1"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush.GradientStops>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+
+                    <DockPanel  LastChildFill="True">
+
+                        <Image Source="/GVNotifier.net;component/Images/gv.png" DockPanel.Dock="Top" Width="96" Height="96" />
+
+
+
+                        <DockPanel DockPanel.Dock="Top">
+                            <GroupBox Name="gpLoginBox" Margin="4,10,4,4" Header="Connect to Google Voice">
+                                <Grid>
+                                    <TextBlock Margin="10" TextAlignment="Center" Opacity="0" Name="lblStatus">Welcome</TextBlock>
+                                    <Grid Name="grdLoginInfo">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition  />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition  Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">Email:</TextBlock>
+                                        <TextBox Name="txtUserName" Grid.Row="0" Grid.Column="1" Margin="0,5,0,5"></TextBox>
+                                        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">Password:</TextBlock>
+                                        <PasswordBox Name="txtPassword" Grid.Row="1" Grid.Column="1" Margin="0,5,0,5"/>
+
+                                        <CheckBox Grid.Row="2" Grid.Column="1" Name="chkSave" HorizontalAlignment="Center" Padding="6,0,6,0">Save Password</CheckBox>
+                                        <CheckBox Grid.Row="2" Grid.Column="0" Name="chkAutoLogin" HorizontalAlignment="Center" Padding="6,0,6,0">Auto Login</CheckBox>
+                                        <Button Name="btnLogin" Click="btnLogin_Click" Grid.Row="3" Margin="6" Grid.Column="1">Log In</Button>
+                                    </Grid>
+
+
+                                </Grid>
+
+
+
+                            </GroupBox>
+                        </DockPanel>
+                        <DockPanel LastChildFill="True">
+                            <TextBlock
+                                Margin="5"
+                                TextAlignment="Center" DockPanel.Dock="Bottom"><Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="http://daveamenta.com">Help and Support</Hyperlink></TextBlock>
+                            <TextBlock
+                                Margin="5,0,5,0"
+                                TextAlignment="Center" DockPanel.Dock="Bottom"><Hyperlink RequestNavigate="Hyperlink_RequestNavigate_1" NavigateUri="http://daveamenta.com">Preferences</Hyperlink></TextBlock>
+
+                            <Label />
+                        </DockPanel>
+
+                    </DockPanel>
+                </Grid>
+            </DockPanel>
+
+
+
+        </Grid>
+    </Grid>
+</Window>
