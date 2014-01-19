@@ -1,16 +1,21 @@
 ﻿<Window x:Class="GVNotifier.GetPin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="2-step verification PIN" Height="167" Width="403">
+        Title="Confirm verification code" 
+        SizeToContent="WidthAndHeight">
     <Grid>
-        <DockPanel Margin="4">
-            <TextBlock Padding="4" TextAlignment="Center" TextWrapping="Wrap" DockPanel.Dock="Top">
-                Enter the verification code that has been sent to your phone.
-            </TextBlock>
-            <DockPanel>
-                <Button Click="Button_Click" Padding="8" MaxHeight="40" Width="100" DockPanel.Dock="Right">OK</Button>
-                <TextBox MaxHeight="40" VerticalAlignment="Center" Name="txtPIN" />
-            </DockPanel>
-        </DockPanel>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Padding="4" 
+                       TextAlignment="Center" 
+                       TextWrapping="Wrap"
+                       Text="Enter the verification code that has been sent to your phone." />
+            <TextBox VerticalAlignment="Center" 
+                     Name="txtPIN" />
+            <Button HorizontalAlignment="Right" 
+                    Click="Button_Click" 
+                    Padding="4" 
+                    Margin="4" 
+                    Content="Continue" />
+        </StackPanel>
     </Grid>
 </Window>
