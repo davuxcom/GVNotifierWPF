@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Preferences" Height="373" Width="525" WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight"
-        Closing="Window_Closing"
         Icon="/GVNotifier.net;component/Images/gv_xp.ico"
         FontFamily="Segoe UI, Verdana"
         SourceInitialized="Window_SourceInitialized">

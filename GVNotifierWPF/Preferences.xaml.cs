@@ -48,7 +48,7 @@ namespace GVNotifier
                 SoundRepeatDuration.Text = "1";
             }
 
-            Thread.Sleep(0);
+            Hide();
 
             Settings.Set("HideFocusLost", (bool)HideFocusLost.IsChecked);
             Settings.Set("SmallIcons", (bool)SmallIcons.IsChecked);
@@ -66,71 +66,13 @@ namespace GVNotifier
             Settings.Set("ShowMissedCall", (bool)ShowMissedCall.IsChecked);
             Settings.Set("ShowPlacedCall", (bool)ShowPlacedCall.IsChecked);
 
-
-
-            //Settings.Set("RunAtWindowsStartup", RunAtWindowsStartup.IsChecked);
-
-            // handle startup
-            /*
-            try
-            {
-                string startupPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
-                startupPath = Path.Combine(startupPath, "GVNotifier") + ".lnk";
-                if (Settings.Get("RunAtWindowsStartup", false))
-                {
-                    using (ShellLink shortcut = new ShellLink())
-                    {
-                        shortcut.Target = "http://www.daveamenta.com/gvnotifier/GVNotifier.net.application";
-                        shortcut.Description = "GVNotifier";
-                        shortcut.DisplayMode = ShellLink.LinkDisplayMode.edmNormal;
-                        shortcut.Save(startupPath);
-                    }
-                }
-                else
-                {
-                    File.Delete(startupPath);
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine("run at startup error: " + ex);
-            }
-            */
             Settings.Save();
             Close();
         }
-        /*
-        public static void AddShortcutToStartupGroup(string productName, string contents, bool delete)
-        {
-            string startupPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
-
-            startupPath = Path.Combine(startupPath, productName) + ".appref-ms";
-            try
-            {
-                if (delete)
-                {
-                    File.Delete(startupPath);
-                }
-                else
-                {
-                    File.WriteAllText(startupPath, contents);
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine("Error adding item to startup: " + ex);
-            }
-        }
-        */
+        
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            // cancel
             Close();
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            // cancel
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
@@ -140,8 +82,6 @@ namespace GVNotifier
 
         private void Window_SourceInitialized(object sender, EventArgs e)
         {
-            // load settings
-
             HideFocusLost.IsChecked = Settings.Get("HideFocusLost", false);
             SmallIcons.IsChecked = Settings.Get("SmallIcons", false);
             HideAfterSelect.IsChecked = Settings.Get("HideAfterSelect", false);
@@ -156,8 +96,6 @@ namespace GVNotifier
             ShowAcceptedCall.IsChecked = Settings.Get("ShowAcceptedCall", false);
             ShowMissedCall.IsChecked = Settings.Get("ShowMissedCall", false);
             ShowPlacedCall.IsChecked = Settings.Get("ShowPlacedCall", false);
-
-            //RunAtWindowsStartup.IsChecked = Settings.Get("RunAtWindowsStartup", false);
         }
     }
 }
