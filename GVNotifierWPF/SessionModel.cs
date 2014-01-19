@@ -172,7 +172,7 @@ namespace GVNotifier
 
         internal static void Check()
         {
-            Debug.WriteLine("Manual Message Check");
+            Trace.WriteLine("Manual Message Check");
             if (Inst != null && Inst.account != null)
             {
                 Inst.account.UpdateAsync();
@@ -199,7 +199,7 @@ namespace GVNotifier
 
         internal static void SignOut()
         {
-            Debug.WriteLine("Sign Out");
+            Trace.WriteLine("Sign Out");
             Settings.Set("AutoLogin", false);
             if (AppClosing != null) AppClosing();
             System.Diagnostics.Process.Start(System.Windows.Forms.Application.ExecutablePath, "--no-mutex");
@@ -470,7 +470,7 @@ namespace GVNotifier
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Couldn't copy new.wav: " + ex.Message);
+                Trace.WriteLine("Couldn't copy new.wav: " + ex.Message);
             }
         }
 
@@ -514,12 +514,12 @@ namespace GVNotifier
                 }
                 else if (line.Trim() == "/prefs")
                 {
-                    Debug.WriteLine("Open Prefs");
+                    Trace.WriteLine("Open Prefs");
                     if (PrefsRequest != null) PrefsRequest();
                 }
                 else if (line.Trim() == "/gv")
                 {
-                    Debug.WriteLine("Open Google Voice");
+                    Trace.WriteLine("Open Google Voice");
                     System.Diagnostics.Process.Start("http://voice.google.com/");
                 }
                 else if (line.Trim() == "/signout")
@@ -528,7 +528,7 @@ namespace GVNotifier
                 }
                 else if (line.Trim() == "/check")
                 {
-                    Debug.WriteLine("Manual Message Check");
+                    Trace.WriteLine("Manual Message Check");
                     if (Inst != null && Inst.account != null)
                     {
                         Inst.account.UpdateAsync();
@@ -536,28 +536,28 @@ namespace GVNotifier
                 }
                 else if (line.Trim() == "/quit")
                 {
-                    Debug.WriteLine("Quit App");
+                    Trace.WriteLine("Quit App");
                     if (AppClosing != null) AppClosing();
                 }
                 else if (line.Trim() == "/show")
                 {
-                    Debug.WriteLine("Show App");
+                    Trace.WriteLine("Show App");
                     if (ShowRequest != null) ShowRequest();
                 }
                 else if (line.Trim() == "/about")
                 {
-                    Debug.WriteLine("Show About");
+                    Trace.WriteLine("Show About");
                     ShowAbout();
                 }
                 else if (line.Trim() == "/update_contacts")
                 {
-                    Debug.WriteLine("Update Contacts");
+                    Trace.WriteLine("Update Contacts");
                     UpdateContacts();
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("open contact failed : " + ex);
+                Trace.WriteLine("open contact failed : " + ex);
             }
         }
 
@@ -738,7 +738,7 @@ namespace GVNotifier
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("SessionModel/SessionModel Create Cache Dir *** " + ex);
+                Trace.WriteLine("SessionModel/SessionModel Create Cache Dir *** " + ex);
             }
             account = new Account(UserName, Password, DavuxLib2.Settings.Get<GVCookie>("SMSV", null), DavuxLib2.App.DataDirectory + @"\cache\");
 
@@ -751,7 +751,7 @@ namespace GVNotifier
             };
             account.ContactsManager.OnContactsUpdated += () =>
             {
-                Debug.WriteLine("Saving Contacts");
+                Trace.WriteLine("Saving Contacts");
                 account.ContactsManager.Save();
             };
             account.SMSVCookieUpdated += cookie =>
@@ -828,7 +828,7 @@ namespace GVNotifier
                         }
                         catch (Exception ex)
                         {
-                            Debug.WriteLine("Error in contacts assoc " + ex);
+                            Trace.WriteLine("Error in contacts assoc " + ex);
                         }
 
                         account.Ready += () =>
@@ -903,14 +903,14 @@ namespace GVNotifier
                     }
                     catch (GVLoginException ex)
                     {
-                        Debug.WriteLine("Login Failed: " + ex);
+                        Trace.WriteLine("Login Failed: " + ex);
                         // bad password
                         if (OnLoginFailure != null)
                             OnLoginFailure();
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine("Login Failed: " + ex);
+                        Trace.WriteLine("Login Failed: " + ex);
                         if (OnLoginMessage != null)
                             OnLoginMessage("No Internet Connection, retrying in 10 seconds.");
                         Thread.Sleep(1000 * 10);

@@ -73,8 +73,8 @@ namespace GVNotifier
         public void Seek(int pos)
         {
             seeking = true;
-            Debug.WriteLine(mciSendString("seek MediaFile to " + pos, null, 0, Handle));
-            Debug.WriteLine(mciSendString("play MediaFile notify", null, 0, Handle));
+            Trace.WriteLine(mciSendString("seek MediaFile to " + pos, null, 0, Handle));
+            Trace.WriteLine(mciSendString("play MediaFile notify", null, 0, Handle));
         }
 
         protected override void WndProc(ref System.Windows.Forms.Message m)

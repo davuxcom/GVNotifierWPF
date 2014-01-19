@@ -73,7 +73,7 @@ namespace GVNotifier
                 // When debugging or starting the process directly, the AUMID will not be set.
                 // Setting the AUMID twice in the ClickOnce context will cause an error.
                 windowsTaskbar = TaskbarManager.Instance;
-                Debug.WriteLine("AppUserModelID: " + windowsTaskbar.ApplicationId);
+                Trace.WriteLine("AppUserModelID: " + windowsTaskbar.ApplicationId);
             });
             try
             {
@@ -86,7 +86,7 @@ namespace GVNotifier
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Content rendering: " + ex);
+                Trace.WriteLine("Content rendering: " + ex);
             }
         }
 
@@ -124,7 +124,7 @@ namespace GVNotifier
 
             catch (Exception ex)
             {
-                Debug.WriteLine("MainWindow_SourceInitialized: " + ex);
+                Trace.WriteLine("MainWindow_SourceInitialized: " + ex);
             }
         }
 
@@ -162,7 +162,7 @@ namespace GVNotifier
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Main/WindowForContact *** " + ex);
+                Trace.WriteLine("Main/WindowForContact *** " + ex);
                 return null;
             }
         }
@@ -209,7 +209,7 @@ namespace GVNotifier
                 {
                     Settings.Set("LoginCount", Settings.Get("LoginCount", 1) + 1);
                     int loginCount = Settings.Get("LoginCount", 0);
-                    Debug.WriteLine("Login Count: " + loginCount);
+                    Trace.WriteLine("Login Count: " + loginCount);
 
                     /*
                     if (loginCount > 5)
@@ -268,7 +268,7 @@ namespace GVNotifier
                     {
                         this.Try(() => windowsTaskbar.SetProgressState(TaskbarProgressBarState.NoProgress));
                     }
-                        Debug.WriteLine("Reloading Contacts View");
+                        Trace.WriteLine("Reloading Contacts View");
                     ResizeGridViewColumn(lsvNameCol);
                     SyncContactsJumpList();
                 });
@@ -549,7 +549,7 @@ namespace GVNotifier
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Main/Voicemail_Click *** " + ex);
+                Trace.WriteLine("Main/Voicemail_Click *** " + ex);
             }
         }
         #endregion
@@ -680,7 +680,7 @@ namespace GVNotifier
 
         static void Current_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            Debug.WriteLine("Unhandled dispatcher ex " + e.Exception);
+            Trace.WriteLine("Unhandled dispatcher ex " + e.Exception);
             // some of the exceptions being thrown by the CAG appear to be coming from separate threads so we'll protect ourselves
             if (!Application.Current.Dispatcher.CheckAccess())
             {
@@ -705,7 +705,7 @@ namespace GVNotifier
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Debug.WriteLine("Unhandled exception: " + e.ExceptionObject);
+            Trace.WriteLine("Unhandled exception: " + e.ExceptionObject);
             // some of the exceptions being thrown by the CAG appear to be coming from separate threads so we'll protect ourselves
             if (!Application.Current.Dispatcher.CheckAccess())
             {
@@ -893,7 +893,7 @@ namespace GVNotifier
         private void vmProgress_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var p = sender as ProgressBar;
-            Debug.WriteLine("Seek: " + p.Value + " of " + VmPlayer.Length);
+            Trace.WriteLine("Seek: " + p.Value + " of " + VmPlayer.Length);
             VmPlayer.Seek((int)p.Value);
         }
 

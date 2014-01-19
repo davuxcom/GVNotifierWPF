@@ -43,7 +43,7 @@ namespace GVNotifier
             }
             catch (Exception)
             {
-                Debug.WriteLine("Prefs numeric error: Bad Value");
+                Trace.WriteLine("Prefs numeric error: Bad Value");
                 SoundRepeeatNumber.Text = "1";
                 SoundRepeatDuration.Text = "1";
             }
@@ -93,7 +93,7 @@ namespace GVNotifier
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("run at startup error: " + ex);
+                Trace.WriteLine("run at startup error: " + ex);
             }
             */
             Settings.Save();
@@ -118,7 +118,7 @@ namespace GVNotifier
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error adding item to startup: " + ex);
+                Trace.WriteLine("Error adding item to startup: " + ex);
             }
         }
         */

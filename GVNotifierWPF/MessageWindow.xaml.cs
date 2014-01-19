@@ -318,7 +318,7 @@ namespace GVNotifier
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine("Error Playing Audio: " + ex);
+                        Trace.WriteLine("Error Playing Audio: " + ex);
                     }
                 }
                 if (!IsFocused) SetNotify();
@@ -355,7 +355,7 @@ namespace GVNotifier
                             }
                             catch (Exception ex)
                             {
-                                Debug.WriteLine("Error Playing Audio: " + ex);
+                                Trace.WriteLine("Error Playing Audio: " + ex);
                             }
                         }
                         notifyThread = null;
@@ -439,9 +439,9 @@ namespace GVNotifier
                     update_ip = true;
                     new Thread(() =>
                         {
-                            Debug.WriteLine("Updating...");
+                            Trace.WriteLine("Updating Account...");
                             SessionModel.Inst.account.Update();
-                            Debug.WriteLine("Update Complete");
+                            Trace.WriteLine("Update Complete");
                             update_ip = false;
                         }).Start();
                 }
@@ -527,7 +527,7 @@ namespace GVNotifier
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("Send Error: " + ex);
+                    Trace.WriteLine("Send Error: " + ex);
                     this.Invoke(() => 
                     {
                         btnSend.IsEnabled = true;
@@ -676,7 +676,7 @@ namespace GVNotifier
 
         private void ZoomIn()
         {
-            Debug.WriteLine("Zoom In");
+            Trace.WriteLine("Zoom In");
             int size = Settings.Get("ViewFontSize", 10);
             Settings.Set("ViewFontSize", ++size);
             SetHTMLFont();
@@ -685,7 +685,7 @@ namespace GVNotifier
 
         private void ZoomOut()
         {
-            Debug.WriteLine("Zoom Out");
+            Trace.WriteLine("Zoom Out");
             int size = Settings.Get("ViewFontSize", 10);
             Settings.Set("ViewFontSize", --size);
             SetHTMLFont();
@@ -699,8 +699,8 @@ namespace GVNotifier
                 Settings.Set("ViewFontSize", 10);
             }
             web.Document.Body.Style = "font-family: " + Settings.Get("ViewFontFamily", "Segoe UI, Verdana") + "; font-size: " + Settings.Get("ViewFontSize", 10) + "px;";
-            Debug.WriteLine("font-family: " + Settings.Get("ViewFontFamily", "Segoe UI, Verdana") + "; font-size: " + Settings.Get("ViewFontSize", 10) + "px;");
-            Debug.WriteLine(web.Document.Body.Style);
+            Trace.WriteLine("font-family: " + Settings.Get("ViewFontFamily", "Segoe UI, Verdana") + "; font-size: " + Settings.Get("ViewFontSize", 10) + "px;");
+            Trace.WriteLine(web.Document.Body.Style);
 
             int size = Settings.Get("ViewFontSize", 14);
             txtInput.FontSize = size / this.GetDPI(); // (size / (96 / (96 * this.GetDPI()))); 
