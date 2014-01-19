@@ -233,6 +233,7 @@ namespace GVNotifier
                     int loginCount = Settings.Get("LoginCount", 0);
                     Debug.WriteLine("Login Count: " + loginCount);
 
+                    /*
                     if (loginCount > 5)
                     {
                         if (!Settings.Get("donate14", false))
@@ -242,6 +243,7 @@ namespace GVNotifier
                             w.Show();
                         }
                     }
+                    */
 
                     Title = "GVNotifier";
                     LoggedInPage.Visibility = System.Windows.Visibility.Visible;
