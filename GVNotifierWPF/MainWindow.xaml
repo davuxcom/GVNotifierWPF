@@ -1,7 +1,7 @@
 ﻿<Window x:Class="GVNotifier.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="" Height="382" Width="260" Icon="/GVNotifier.net;component/Images/gv_xp.ico"
+        Title="GVNotifier Login" Height="382" Width="260" Icon="/GVNotifier.net;component/Images/gv_xp.ico"
         FontFamily="Segoe UI, Verdana"
         SourceInitialized="Window_SourceInitialized"
         PreviewKeyDown="selfwin_PreviewKeyDown"
@@ -520,6 +520,7 @@
         <Grid Name="LoginPage"  Visibility="Visible">
 
             <DockPanel LastChildFill="True">
+                <!--
                 <Grid Height="28" Name="gLoginTop" DockPanel.Dock="Top">
                     <TextBlock  DockPanel.Dock="Top" Foreground="Black" VerticalAlignment="Center" TextAlignment="Center" FontSize="14">
                         <TextBlock.BitmapEffect>
@@ -532,7 +533,7 @@
 
                     </TextBlock>
                 </Grid>
-
+-->
                 <Grid>
                     <Grid.Background>
                         <LinearGradientBrush StartPoint="0,0.1" EndPoint="0,0.5">

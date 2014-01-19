@@ -14,10 +14,12 @@
         Closing="Window_Closing"
         Title="" Height="300" Width="300"
         >
+    <!--
     <Window.Resources>
         <ResourceDictionary Source="/PresentationFramework.Aero, Version=3.0.0.0, Culture=neutral, 
     PublicKeyToken=31bf3856ad364e35, ProcessorArchitecture=MSIL;component/themes/aero.normalcolor.xaml" />
     </Window.Resources>
+    -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -29,6 +31,7 @@
         <Grid Grid.Row="0">
             <Grid Name="grdTopColor" Visibility="Collapsed" Background="Black">
                 <Grid>
+                    <!--
                 <Grid.Background>
                     <DrawingBrush >
                         <DrawingBrush.Drawing>
@@ -68,6 +71,7 @@
                         </DrawingBrush.Drawing>
                     </DrawingBrush>
                 </Grid.Background>
+                    -->
                 <Label Name="lblTop"
                    
                    VerticalAlignment="Center"

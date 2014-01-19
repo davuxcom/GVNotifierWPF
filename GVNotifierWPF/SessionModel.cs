@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using DavuxLib2;
 using GoogleVoice;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using DavuxLib2;
-using System.Threading;
-using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
-using System.Windows.Data;
-using System.Windows.Threading;
 using System.IO.Pipes;
-using System.Windows;
-using System.ComponentModel;
-using System.Globalization;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace GVNotifier
 {
