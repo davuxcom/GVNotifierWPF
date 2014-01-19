@@ -41,7 +41,7 @@ namespace GVNotifier
                 SoundRepeatDuration.Text = int.Parse(SoundRepeatDuration.Text).ToString();
                 SoundRepeeatNumber.Text = int.Parse(SoundRepeeatNumber.Text).ToString();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Debug.WriteLine("Prefs numeric error: Bad Value");
                 SoundRepeeatNumber.Text = "1";

@@ -156,7 +156,7 @@ namespace GVNotifier
         public static event Action AppClosing;
         public static event Action ShowRequest;
         public static event Action PrefsRequest;
-        public static event Action CheckRequest;
+        //public static event Action CheckRequest;
         public static event Action AboutRequest;
         
 
@@ -426,7 +426,7 @@ namespace GVNotifier
                 SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle,
               (UIntPtr)0xFFFFFFFF, (UIntPtr)0xFFFFFFFF);
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
 
         [DllImport("kernel32.dll")]
