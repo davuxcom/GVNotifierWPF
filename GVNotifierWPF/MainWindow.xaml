@@ -535,6 +535,7 @@
                 </Grid>
 -->
                 <Grid>
+                    <!--
                     <Grid.Background>
                         <LinearGradientBrush StartPoint="0,0.1" EndPoint="0,0.5">
                             <LinearGradientBrush.GradientStops>
@@ -546,7 +547,7 @@
                             </LinearGradientBrush.GradientStops>
                         </LinearGradientBrush>
                     </Grid.Background>
-
+-->
                     <DockPanel  LastChildFill="True">
 
                         <Image Source="/GVNotifier.net;component/Images/gv.png" DockPanel.Dock="Top" Width="96" Height="96" />
