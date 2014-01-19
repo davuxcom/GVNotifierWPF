@@ -188,10 +188,7 @@
       <SubType>Designer</SubType>
     </None>
     <Resource Include="Icons2.res" />
-    <None Include="GVNotifier_1_TemporaryKey.pfx" />
-    <None Include="GVNotifier_2_TemporaryKey.pfx" />
     <None Include="GVNotifier_3_TemporaryKey.pfx" />
-    <None Include="GVNotifier_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>
     </None>
