@@ -77,7 +77,7 @@
                    VerticalAlignment="Center"
                        FontWeight="SemiBold"
                        Foreground="White"
-                       FontSize="11"
+                     
                        Margin="0"
                        Padding="8,2,4,2"
 

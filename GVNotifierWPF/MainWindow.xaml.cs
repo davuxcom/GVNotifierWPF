@@ -222,7 +222,7 @@ namespace GVNotifier
                         this.FadeToTransparent(lblStatus.Name);
                         this.FadeToOpaque(grdLoginInfo.Name);
                         windowsTaskbar.SetProgressState(TaskbarProgressBarState.NoProgress);
-                        gpLoginBox.Header = "Invalid Username or Password";
+                        // gpLoginBox.Header = "Invalid Username or Password";
                     });
             };
             model.OnLoginSuccess += () =>
@@ -295,7 +295,7 @@ namespace GVNotifier
 
             lblStatus.Text = "Waiting...";
             lblStatus.Visibility = System.Windows.Visibility.Visible;
-            gpLoginBox.Header = "";
+            // gpLoginBox.Header = "";
 
             // TODO still not right for loading a window above
             model.OnJumpListContact += (c) =>

@@ -243,23 +243,24 @@
                         <Border BorderBrush="#80000000" BorderThickness="1,1,0,0" CornerRadius="2">
                             <Border BorderBrush="#30000000" BorderThickness="0,0,1,1" CornerRadius="2">
                                 <Border BorderBrush="#F0FFFFFF" BorderThickness="1" CornerRadius="1">
-
-                                    <Grid  Name="grdSerch" Background="#C0FFFFFF">
-                                        <!--  -->
-                                        <TextBlock Name="txtSearchPrompt" Margin="4" FontStyle="Italic">
+                                    <Grid Name="grdSerch" Background="#C0FFFFFF">
+                                        <TextBlock Foreground="Gray" 
+                                                   Name="txtSearchPrompt" 
+                                                   Margin="4" 
+                                                   FontStyle="Italic">
                                             Search Names and Numbers
                                         </TextBlock>
-                                        <!--
-                                        <Image Height="16" Width="16" Source="/GVNotifier.net;component/Images/search.png"
-                                            HorizontalAlignment="Right" VerticalAlignment="Center"
-                                            />
-                                        -->
-                                        <!-- Background="#C0FFFFFF" -->
-                                        <TextBox Style="{StaticResource OT}" PreviewKeyDown="txtSearch_KeyDown" KeyDown="txtSearch_KeyDown"   BorderThickness="0" Name="txtSearch" TextChanged="txtSearch_TextChanged">
+                                        <TextBox Style="{StaticResource OT}" 
+                                                 PreviewKeyDown="txtSearch_KeyDown" 
+                                                 KeyDown="txtSearch_KeyDown"   
+                                                 BorderThickness="0" 
+                                                 Name="txtSearch" 
+                                                 TextChanged="txtSearch_TextChanged">
                                             <TextBox.Background>
-                                                <!--<SolidColorBrush Color="#C0FFFFFF" />-->
-                                                <ImageBrush Stretch="None" AlignmentX="Right" AlignmentY="Center" ImageSource="/GVNotifier.net;component/Images/search.png" />
-
+                                                <ImageBrush Stretch="None" 
+                                                            AlignmentX="Right" 
+                                                            AlignmentY="Center" 
+                                                            ImageSource="/GVNotifier.net;component/Images/search.png" />
                                             </TextBox.Background>
                                         </TextBox>
                                     </Grid>
@@ -268,40 +269,28 @@
                         </Border>
                     </Border>
                 </Grid>
-                <!--
-                <DockPanel Name="bottomPanel" DockPanel.Dock="Bottom">
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Button FontWeight="Bold" Padding="5,0,5,0" Margin="4,3,4,0" Content="Contacts" Name="btnContactsView" Click="btnContactsView_Click" />
-                        <Button Padding="5,0,5,0" Margin="4,3,4,0" Content="Calls" Name="btnCallView" Click="btnCallView_Click" />
-                        <Button Padding="5,0,5,0" Margin="4,3,4,0" Content="Voicemail" Name="btnVoicemailView" Click="btnVoicemailView_Click" />
-                    </StackPanel>
-                </DockPanel>
-                -->
                 <Border DockPanel.Dock="Bottom"  Name="bottomPanel" SnapsToDevicePixels="True" Margin="0" Padding="0"  BorderThickness="0,0,0,0" BorderBrush="Gray">
-
-                    <Grid  SnapsToDevicePixels="True" Margin="0" Grid.Row="0" Name="stkMenu">
-
-
+                    <Grid SnapsToDevicePixels="True" Margin="0" Grid.Row="0" Name="stkMenu">
                         <DockPanel>
-
-                            <Button Style="{DynamicResource AeroTab}" Tag="Active" FontWeight="Bold" Content="Contacts" Name="btnContactsView" Click="btnContactsView_Click" />
-                            <Button Style="{DynamicResource AeroTab}"  Content="Call History" Name="btnCallView" Click="btnCallView_Click" />
-                            <Button Style="{DynamicResource AeroTab}" Content="Voicemail" Name="btnVoicemailView" Click="btnVoicemailView_Click" />
-                            <!--
-                            <Button Style="{DynamicResource AeroTab}" Click="Button_Click" DockPanel.Dock="Left" Content="Contacts" />
-                            <Button Style="{DynamicResource AeroTab}" Click="Button_Click" DockPanel.Dock="Left" Content="Call History" />
-                            <Button Style="{DynamicResource AeroTab}" Click="Button_Click" DockPanel.Dock="Left" Content="Voicemail" />
-                            
-                            -->
-                            <Border BorderBrush="Gray" BorderThickness="0,1,0,0">
+                            <Button Style="{DynamicResource AeroTab}" 
+                                    Tag="Active" 
+                                    FontWeight="Bold" 
+                                    Content="Contacts" 
+                                    Name="btnContactsView" 
+                                    Click="btnContactsView_Click" />
+                            <Button Style="{DynamicResource AeroTab}"  
+                                    Content="Call History" 
+                                    Name="btnCallView" 
+                                    Click="btnCallView_Click" />
+                            <Button Style="{DynamicResource AeroTab}" 
+                                    Content="Voicemail" 
+                                    Name="btnVoicemailView" 
+                                    Click="btnVoicemailView_Click" />
+                            <Border BorderBrush="Gray" 
+                                    BorderThickness="0,1,0,0">
                                 <Label />
                             </Border>
-
                         </DockPanel>
-
-
-
-
 
                         <Grid.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -317,15 +306,14 @@
                     </Grid>
                 </Border>
 
-
                 <Grid>
-
-                    <ListView VirtualizingStackPanel.IsVirtualizing="False"  ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
-                              Name="lsvContacts" ContextMenuOpening="mnuContactsList_ContextMenuOpening"
-                              BorderThickness="0,1,0,0"
-                              >
+                    <ListView VirtualizingStackPanel.IsVirtualizing="False"  
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                              Name="lsvContacts" 
+                              ContextMenuOpening="mnuContactsList_ContextMenuOpening"
+                              BorderThickness="0,1,0,0">
                         <ListView.Resources>
-                            <Style  BasedOn="{StaticResource AeroListview}" TargetType="{x:Type ListViewItem}">
+                            <Style BasedOn="{StaticResource AeroListview}" TargetType="{x:Type ListViewItem}">
                                 <EventSetter Event="MouseLeftButtonUp" Handler="Contact_Click" />
                                 <EventSetter Event="PreviewKeyDown" Handler="ListViewItem_PreviewKeyDown" />
                             </Style>
@@ -335,7 +323,6 @@
                                 <MenuItem Name="mnuPinUnpin"  Click="mnuPinUnpin_Click" />
                             </ContextMenu>
                         </ListView.ContextMenu>
-
                         <ListView.GroupStyle>
                             <GroupStyle>
                                 <GroupStyle.HeaderTemplate>
@@ -345,53 +332,51 @@
                                 </GroupStyle.HeaderTemplate>
                             </GroupStyle>
                         </ListView.GroupStyle>
-
                         <ListView.View>
                             <GridView ColumnHeaderContainerStyle="{StaticResource NoHeaderStyle}">
                                 <GridViewColumn Width="Auto">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Margin="0" MaxHeight="{Binding Path=MaxIconSize}" Source="{Binding Path=ImageLocation, Mode=OneWay, Converter={StaticResource img}}" />
+                                            <Image Margin="0" 
+                                                   MaxHeight="{Binding Path=MaxIconSize}" 
+                                                   Source="{Binding Path=ImageLocation, Mode=OneWay, Converter={StaticResource img}}" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Width="Auto" x:Name="lsvNameCol">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" />
+                                            <TextBlock FontWeight="Bold" 
+                                                       Text="{Binding Path=Name}" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
-
-
-
-                    <ListView 
-                     BorderThickness="0,1,0,0"
-                    VirtualizingStackPanel.IsVirtualizing="False"
-                    Visibility="Collapsed" 
-                    ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
-                    SelectionChanged="lsvVM_SelectionChanged"
-                    Name="lsvVM"
-                    SizeChanged="lsvVM_SizeChanged"
-                     HorizontalContentAlignment="Stretch"
-                    ContextMenuOpening="mnuContactsList_ContextMenuOpening">
+                    <ListView BorderThickness="0,1,0,0"
+                              VirtualizingStackPanel.IsVirtualizing="False"
+                              Visibility="Collapsed" 
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                              SelectionChanged="lsvVM_SelectionChanged"
+                              Name="lsvVM"
+                              SizeChanged="lsvVM_SizeChanged"
+                              HorizontalContentAlignment="Stretch"
+                              ContextMenuOpening="mnuContactsList_ContextMenuOpening">
                         <ListView.Resources>
-
-                            <Style  BasedOn="{StaticResource AeroListview}" TargetType="{x:Type ListViewItem}">
+                            <Style BasedOn="{StaticResource AeroListview}" TargetType="{x:Type ListViewItem}">
                                 <EventSetter Event="MouseDoubleClick" Handler="Voicemail_Click" />
                                 <EventSetter Event="PreviewKeyDown" Handler="Voicemail_ListViewItem_PreviewKeyDown" />
-
                             </Style>
-
                         </ListView.Resources>
                         <ListView.GroupStyle>
                             <GroupStyle>
                                 <GroupStyle.HeaderTemplate>
                                     <DataTemplate>
-                                        <TextBlock FontSize="15" Margin="8,4,4,4" FontWeight="Bold" Text="{Binding Path=Name, Mode=OneWay}"/>
+                                        <TextBlock FontSize="15" 
+                                                   Margin="8,4,4,4" 
+                                                   FontWeight="Bold" 
+                                                   Text="{Binding Path=Name, Mode=OneWay}"/>
                                     </DataTemplate>
                                 </GroupStyle.HeaderTemplate>
                             </GroupStyle>
@@ -402,41 +387,49 @@
                                 <GridViewColumn Width="Auto" x:Name="lsvNameColVM">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-
                                             <StackPanel Orientation="Vertical">
                                                 <Grid Width="9999" />
                                                 <DockPanel>
-                                                    <Image DockPanel.Dock="Left" Margin="0" MaxHeight="32" Source="{Binding Path=ImageLocation, Converter={StaticResource img}}" />
+                                                    <Image DockPanel.Dock="Left" 
+                                                           Margin="0" 
+                                                           MaxHeight="32" 
+                                                           Source="{Binding Path=ImageLocation, Converter={StaticResource img}}" />
                                                     <DockPanel Margin="14,0,0,0">
-                                                        <TextBlock FontWeight="Bold" Margin="0" DockPanel.Dock="Top" Text="{Binding Path=Name}" />
-                                                        <TextBlock Margin="0" VerticalAlignment="Top" DockPanel.Dock="Bottom" Text="{Binding Path=Time,Converter={StaticResource FriendlyTimeDescription}}" />
+                                                        <TextBlock FontWeight="Bold" 
+                                                                   Margin="0" 
+                                                                   DockPanel.Dock="Top" 
+                                                                   Text="{Binding Path=Name}" />
+                                                        <TextBlock Margin="0" 
+                                                                   VerticalAlignment="Top" 
+                                                                   DockPanel.Dock="Bottom" 
+                                                                   Text="{Binding Path=Time,Converter={StaticResource FriendlyTimeDescription}}" />
                                                     </DockPanel>
                                                 </DockPanel>
-                                                <TextBlock 
-                                                HorizontalAlignment="Stretch"
-                                                Margin="4" TextWrapping="Wrap" 
-                                                Text="{Binding Path=Text}" />
-
-                                                <Grid
-                                                Visibility="{Binding Converter={StaticResource BooleanToVisibility}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsSelected}">
+                                                <TextBlock  HorizontalAlignment="Stretch"
+                                                            Margin="4" 
+                                                            TextWrapping="Wrap" 
+                                                            Text="{Binding Path=Text}" />
+                                                <Grid Visibility="{Binding Converter={StaticResource BooleanToVisibility}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsSelected}">
                                                     <DockPanel Margin="10,5,20,5">
-                                                        <Button DockPanel.Dock="Left"  Tag="{Binding}" 
-                                                            VerticalAlignment="Center"
-                                                            Margin="5" Name="PlayPause" Click="PlayPause_Click">
-                                                            <Button.Content>
-                                                                Play
-                                                            </Button.Content>
-                                                        </Button>
-                                                        <Label DockPanel.Dock="Right" Margin="0" 
-                                                           VerticalAlignment="Center"
-                                                            Content="{Binding ElementName=selfwin, Path=VmPlayerString}" />
-
+                                                        <Button DockPanel.Dock="Left"  
+                                                                Tag="{Binding}" 
+                                                                VerticalAlignment="Center"
+                                                                Margin="4"
+                                                                Padding="4"
+                                                                Name="PlayPause" 
+                                                                Click="PlayPause_Click"
+                                                                Content="Play" />
+                                                        <Label DockPanel.Dock="Right" 
+                                                               Margin="0" 
+                                                               VerticalAlignment="Center"
+                                                               Content="{Binding ElementName=selfwin, Path=VmPlayerString}" />
                                                         <ProgressBar Name="vmProgress" 
-                                                                    Height="10"
-                                                                    MouseDown="vmProgress_MouseDown" 
-                                                                    Maximum="{Binding ElementName=selfwin, Path=VmPlayerMax}" Value="{Binding ElementName=selfwin, Path=VmPlayerPosition}" 
-                                                                    HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Center"                                             
-                                                    />
+                                                                     Height="10"
+                                                                     MouseDown="vmProgress_MouseDown" 
+                                                                     Maximum="{Binding ElementName=selfwin, Path=VmPlayerMax}" Value="{Binding ElementName=selfwin, Path=VmPlayerPosition}" 
+                                                                     HorizontalAlignment="Stretch" 
+                                                                     Margin="4" 
+                                                                     VerticalAlignment="Center" />                                        
                                                     </DockPanel>
                                                 </Grid>
                                             </StackPanel>
@@ -445,19 +438,14 @@
                                 </GridViewColumn>
                             </GridView>
                         </ListView.View>
-
                     </ListView>
-
-
-
-                    <ListView 
-                         BorderThickness="0,1,0,0"
-                        VirtualizingStackPanel.IsVirtualizing="False"
-                    Visibility="Collapsed" 
-                    ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
-                    Name="lsvCalls"
-                     HorizontalContentAlignment="Stretch"
-                    ContextMenuOpening="mnuContactsList_ContextMenuOpening">
+                    <ListView BorderThickness="0,1,0,0"
+                              VirtualizingStackPanel.IsVirtualizing="False"
+                              Visibility="Collapsed" 
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                              Name="lsvCalls"
+                              HorizontalContentAlignment="Stretch"
+                              ContextMenuOpening="mnuContactsList_ContextMenuOpening">
                         <ListView.Resources>
                             <Style TargetType="TextBlock">
                                 <Setter Property="AutomationProperties.Name" Value="{Binding Path=Name}"/>
@@ -467,143 +455,139 @@
                                 <EventSetter Event="PreviewKeyDown" Handler="Calls_ListViewItem_PreviewKeyDown" />
                             </Style>
                         </ListView.Resources>
-
                         <ListView.GroupStyle>
                             <GroupStyle>
                                 <GroupStyle.HeaderTemplate>
                                     <DataTemplate>
-                                        <TextBlock FontSize="15" Margin="8,4,4,4" FontWeight="Bold" Text="{Binding Path=Name, Mode=OneWay}"/>
+                                        <TextBlock FontSize="15" 
+                                                   Margin="8,4,4,4" 
+                                                   FontWeight="Bold" 
+                                                   Text="{Binding Path=Name, Mode=OneWay}"/>
                                     </DataTemplate>
                                 </GroupStyle.HeaderTemplate>
                             </GroupStyle>
                         </ListView.GroupStyle>
-
                         <ListView.View>
                             <GridView ColumnHeaderContainerStyle="{StaticResource NoHeaderStyle}" >
-
                                 <GridViewColumn Width="Auto">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Margin="0" MaxHeight="32" Source="{Binding Path=ImageLocation, Mode=OneWay, Converter={StaticResource img}}" />
+                                            <Image Margin="0" 
+                                                   MaxHeight="32"
+                                                   Source="{Binding Path=ImageLocation, Mode=OneWay, Converter={StaticResource img}}" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-
                                 <GridViewColumn Width="Auto" x:Name="lsvNameColCalls">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <DockPanel VerticalAlignment="Center">
                                                 <DockPanel Margin="0" DockPanel.Dock="Top">
-                                                    <TextBlock FontWeight="Bold" Margin="0,4,4,0" DockPanel.Dock="Left" Text="{Binding Path=Name}"  AutomationProperties.Name="{Binding Path=Name}" />
-
+                                                    <TextBlock FontWeight="Bold" 
+                                                               Margin="0,4,4,0" 
+                                                               DockPanel.Dock="Left" 
+                                                               Text="{Binding Path=Name}"  AutomationProperties.Name="{Binding Path=Name}" />
                                                 </DockPanel>
                                                 <DockPanel DockPanel.Dock="Bottom">
                                                     <TextBlock Margin="0" DockPanel.Dock="Left"
                                                            Foreground="{Binding Path=MessageType,Converter={StaticResource CallTypeColorConverter}}"
                                                            Text="{Binding Path=MessageType,Converter={StaticResource CallTypeTextConverter}}" />
-                                                    <TextBlock Margin="4,0,0,0" DockPanel.Dock="Right" Text="{Binding Path=Time,Converter={StaticResource FriendlyTimeDescription}}" />
+                                                    <TextBlock Margin="4,0,0,0" 
+                                                               DockPanel.Dock="Right" 
+                                                               Text="{Binding Path=Time,Converter={StaticResource FriendlyTimeDescription}}" />
                                                 </DockPanel>
-
                                             </DockPanel>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                             </GridView>
                         </ListView.View>
-
                     </ListView>
                 </Grid>
             </DockPanel>
-
         </Grid>
-
-        <Grid Name="LoginPage"  Visibility="Visible">
-
+        <Grid Name="LoginPage"  Visibility="Visible" Margin="12">
             <DockPanel LastChildFill="True">
-                <!--
-                <Grid Height="28" Name="gLoginTop" DockPanel.Dock="Top">
-                    <TextBlock  DockPanel.Dock="Top" Foreground="Black" VerticalAlignment="Center" TextAlignment="Center" FontSize="14">
-                        <TextBlock.BitmapEffect>
-
-                            <OuterGlowBitmapEffect Opacity=".7" GlowColor="#eeeeee" GlowSize="9"></OuterGlowBitmapEffect>
-                        </TextBlock.BitmapEffect>
-                        <TextBlock.Text>
-                        GVNotifier 
-                        </TextBlock.Text>
-
-                    </TextBlock>
-                </Grid>
--->
                 <Grid>
-                    <!--
-                    <Grid.Background>
-                        <LinearGradientBrush StartPoint="0,0.1" EndPoint="0,0.5">
-                            <LinearGradientBrush.GradientStops>
-                                <GradientStopCollection>
-                                    <GradientStop Color="#F1F6FB"  Offset="0"/>
-                                    <GradientStop Color="#FFFFFF"  Offset=".5"/>
-                                    <GradientStop Color="#F1F6FB" Offset="1"/>
-                                </GradientStopCollection>
-                            </LinearGradientBrush.GradientStops>
-                        </LinearGradientBrush>
-                    </Grid.Background>
--->
-                    <DockPanel  LastChildFill="True">
-
-                        <Image Source="/GVNotifier.net;component/Images/gv.png" DockPanel.Dock="Top" Width="96" Height="96" />
-
-
-
+                    <DockPanel LastChildFill="True">
+                        <Image Source="/GVNotifier.net;component/Images/gv.png" 
+                               DockPanel.Dock="Top" 
+                               Width="96" 
+                               Height="96" />
                         <DockPanel DockPanel.Dock="Top">
-                            <GroupBox Name="gpLoginBox" Margin="4,10,4,4" Header="Connect to Google Voice">
-                                <Grid>
-                                    <TextBlock Margin="10" TextAlignment="Center" Opacity="0" Name="lblStatus">Welcome</TextBlock>
-                                    <Grid Name="grdLoginInfo">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition  />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition  Height="Auto" />
-                                        </Grid.RowDefinitions>
-
-                                        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">Email:</TextBlock>
-                                        <TextBox Name="txtUserName" Grid.Row="0" Grid.Column="1" Margin="0,5,0,5"></TextBox>
-                                        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">Password:</TextBlock>
-                                        <PasswordBox Name="txtPassword" Grid.Row="1" Grid.Column="1" Margin="0,5,0,5"/>
-
-                                        <CheckBox Grid.Row="2" Grid.Column="1" Name="chkSave" HorizontalAlignment="Center" Padding="6,0,6,0">Save Password</CheckBox>
-                                        <CheckBox Grid.Row="2" Grid.Column="0" Name="chkAutoLogin" HorizontalAlignment="Center" Padding="6,0,6,0">Auto Login</CheckBox>
-                                        <Button Name="btnLogin" Click="btnLogin_Click" Grid.Row="3" Margin="6" Grid.Column="1">Log In</Button>
-                                    </Grid>
-
-
+                            <Grid>
+                                <TextBlock Margin="10" 
+                                           TextAlignment="Center" 
+                                           Opacity="0" 
+                                           Name="lblStatus"
+                                           Text="Welcome" />
+                                <Grid Name="grdLoginInfo">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" 
+                                               Grid.Column="0" 
+                                               HorizontalAlignment="Left" 
+                                               VerticalAlignment="Center">Email:</TextBlock>
+                                    <TextBox Name="txtUserName" 
+                                             Grid.Row="0" 
+                                             Grid.Column="1" 
+                                             Margin="0,5,0,5"></TextBox>
+                                    <TextBlock Grid.Row="1" 
+                                               Grid.Column="0" 
+                                               HorizontalAlignment="Left" 
+                                               VerticalAlignment="Center">Password:</TextBlock>
+                                    <PasswordBox Name="txtPassword" 
+                                                 Grid.Row="1" 
+                                                 Grid.Column="1" 
+                                                 Margin="0,5,0,5"/>
+                                    <CheckBox Grid.Row="2" 
+                                              Grid.Column="0" 
+                                              Name="chkSave" 
+                                              HorizontalAlignment="Left" 
+                                              VerticalContentAlignment="Center" 
+                                              Padding="6,0,6,0">Save Password</CheckBox>
+                                    <CheckBox Grid.Row="3" 
+                                              Grid.Column="0" 
+                                              Name="chkAutoLogin" 
+                                              HorizontalAlignment="Left" 
+                                              VerticalContentAlignment="Center" 
+                                              Padding="6,0,6,0">Auto Login</CheckBox>
+                                    <Button Name="btnLogin" 
+                                            Click="btnLogin_Click" 
+                                            Grid.Row="3" 
+                                            Margin="6" 
+                                            Grid.Column="1">Log In</Button>
                                 </Grid>
-
-
-
-                            </GroupBox>
+                            </Grid>
                         </DockPanel>
                         <DockPanel LastChildFill="True">
                             <TextBlock
                                 Margin="5"
-                                TextAlignment="Center" DockPanel.Dock="Bottom"><Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="http://daveamenta.com">Help and Support</Hyperlink></TextBlock>
+                                TextAlignment="Center" 
+                                DockPanel.Dock="Bottom">
+                                    <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" 
+                                               NavigateUri="http://daveamenta.com">Help and Support</Hyperlink>
+                            </TextBlock>
                             <TextBlock
                                 Margin="5,0,5,0"
-                                TextAlignment="Center" DockPanel.Dock="Bottom"><Hyperlink RequestNavigate="Hyperlink_RequestNavigate_1" NavigateUri="http://daveamenta.com">Preferences</Hyperlink></TextBlock>
-
+                                TextAlignment="Center" 
+                                DockPanel.Dock="Bottom">
+                                <Hyperlink RequestNavigate="Hyperlink_RequestNavigate_1" 
+                                           NavigateUri="http://daveamenta.com">Preferences</Hyperlink>
+                            </TextBlock>
                             <Label />
                         </DockPanel>
-
                     </DockPanel>
                 </Grid>
             </DockPanel>
-
-
-
         </Grid>
     </Grid>
 </Window>
