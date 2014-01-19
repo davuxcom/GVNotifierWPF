@@ -71,10 +71,10 @@
     </Win32Resource>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>F66B5076A70EE3B3BB95622729EB57A8B529DFDF</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>26981B6075CB01EB914AD1B766113D90D90DD4D1</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>GVNotifier_2_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>GVNotifier_3_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -84,7 +84,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.WindowsAPICodePack">
@@ -190,6 +190,7 @@
     <Resource Include="Icons2.res" />
     <None Include="GVNotifier_1_TemporaryKey.pfx" />
     <None Include="GVNotifier_2_TemporaryKey.pfx" />
+    <None Include="GVNotifier_3_TemporaryKey.pfx" />
     <None Include="GVNotifier_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>

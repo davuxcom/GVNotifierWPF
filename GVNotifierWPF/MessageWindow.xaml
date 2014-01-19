@@ -101,15 +101,16 @@
                    TextWrapping="Wrap"
                 AcceptsReturn="True"
                  MaxLines="4"
+                 Margin="4,0"
                     VerticalScrollBarVisibility="Auto"
                  HorizontalScrollBarVisibility="Disabled"
                  />
         <ProgressBar Visibility="Collapsed" Name="pgrSMS" MaxHeight="5" Margin="0" Padding="0" Grid.Row="3" Maximum="160" Value="0" BorderThickness="0" />
         <DockPanel Grid.Row="4" LastChildFill="True">
-            <Button Name="btnCall" VerticalAlignment="Center" Click="btnCall_Click" Content="Call" Margin="0,4,0,0" Padding="8,0,8,0" DockPanel.Dock="Left" />
-            <Button Name="btnSend" VerticalAlignment="Center" Click="btnSend_Click" IsEnabled="False" Content="Send" Margin="0,4,0,0" Padding="8,0,8,0" DockPanel.Dock="Right" />
+            <Button Name="btnCall" VerticalAlignment="Center" Click="btnCall_Click" Content="Call" Margin="4" Padding="8,0,8,0" DockPanel.Dock="Left" />
+            <Button Name="btnSend" VerticalAlignment="Center" Click="btnSend_Click" IsEnabled="False" Content="Send" Margin="4" Padding="8,0,8,0" DockPanel.Dock="Right" />
             <Grid>
-                <Label Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="SemiBold" FontSize="12" Foreground="Black" Name="lblNumber" MouseEnter="Label_MouseEnter">
+                <Label Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="SemiBold" Foreground="Black" Name="lblNumber" MouseEnter="Label_MouseEnter">
                     123-456-7890
                     <Label.BitmapEffect>
                         <OuterGlowBitmapEffect GlowColor="#ccFFFFFF" GlowSize="7"></OuterGlowBitmapEffect>

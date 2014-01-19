@@ -238,7 +238,7 @@
     <Grid>
         <Grid Name="LoggedInPage" Visibility="Hidden">
             <DockPanel LastChildFill="True">
-                <Grid DockPanel.Dock="Top" Margin="0,0,0,3">
+                <Grid DockPanel.Dock="Top" Margin="0">
                     <Border BorderBrush="#40FFFFFF" BorderThickness="1" CornerRadius="2">
                         <Border BorderBrush="#80000000" BorderThickness="1,1,0,0" CornerRadius="2">
                             <Border BorderBrush="#30000000" BorderThickness="0,0,1,1" CornerRadius="2">
@@ -246,8 +246,8 @@
 
                                     <Grid  Name="grdSerch" Background="#C0FFFFFF">
                                         <!--  -->
-                                        <TextBlock Name="txtSearchPrompt" Margin="6,0,0,0" FontStyle="Italic">
-                                            Search Contacts and Numbers
+                                        <TextBlock Name="txtSearchPrompt" Margin="4" FontStyle="Italic">
+                                            Search Names and Numbers
                                         </TextBlock>
                                         <!--
                                         <Image Height="16" Width="16" Source="/GVNotifier.net;component/Images/search.png"
