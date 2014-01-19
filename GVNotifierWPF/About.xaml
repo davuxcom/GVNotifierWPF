@@ -1,7 +1,7 @@
 ﻿<Window x:Class="GVNotifier.About"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="About GVNotifier" Height="199" Width="218"
+        Title="About GVNotifier" SizeToContent="WidthAndHeight"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="{x:Type Hyperlink}">
@@ -14,13 +14,16 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <DockPanel>
-            <Image Margin="10" Source="/GVNotifier.net;component/Images/gv.png" DockPanel.Dock="Top" Width="96" Height="96" />
-            <TextBlock Name="lblApp" TextAlignment="Center" DockPanel.Dock="Top">
+        <DockPanel Margin="12">
+            <Image Margin="4" Source="/GVNotifier.net;component/Images/gv.png" DockPanel.Dock="Top" Width="96" Height="96" />
+            <TextBlock Margin="4" Name="lblApp" TextAlignment="Center" DockPanel.Dock="Top">
                 GVNotifier
             </TextBlock>
-            <TextBlock Margin="5,0,5,0" TextAlignment="Center" DockPanel.Dock="Bottom">
-                <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="http://daveamenta.com">Dave Amenta Software</Hyperlink>
+            <TextBlock Margin="4" TextAlignment="Center" DockPanel.Dock="Top">
+                This software is open source.
+            </TextBlock>
+            <TextBlock Margin="4" TextAlignment="Center" DockPanel.Dock="Bottom">
+                <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://github.com/DaveAmenta/GVNotifierWPF">Get It on GitHub</Hyperlink>
             </TextBlock>
         </DockPanel>
     </Grid>

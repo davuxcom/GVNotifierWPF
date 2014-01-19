@@ -1,12 +1,13 @@
-﻿using System;
+﻿using DavuxLib2;
+using DavuxLib2.Extensions;
+using Microsoft.WindowsAPICodePack.Taskbar;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,9 +16,6 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using Microsoft.WindowsAPICodePack.Taskbar;
-using DavuxLib2.Extensions;
-using DavuxLib2;
 
 namespace GVNotifier
 {
@@ -34,8 +32,6 @@ namespace GVNotifier
         public MainWindow()
         {
             InitializeComponent();
-            // TODO what the hell does this Tag do?
-            Tag = "Main";
 
             Application.Current.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(Current_DispatcherUnhandledException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
@@ -43,17 +39,16 @@ namespace GVNotifier
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            // TODO the sender != null call here has to do with ExitWindows(), but I'm not sure on the 
-            // details.  I guess there is no sender if Windows asks us to quit.
-            // I got reports about GVNotifier blocking shutdown, so definitely don't want to mess this up!
             if (sender != null && Settings.Get("ShowTrayIcon", false))
             {
+                // The sender != null call here has to do with ExitWindows(), but I'm not sure on the 
+                // details. There had been reports about GVNotifier blocking shutdown on XP.
                 e.Cancel = true;
-
                 this.Invoke(() => this.Try(() => Hide()));
             }
             else
             {
+                this.Invoke(() => this.Try(() => Hide()));
                 if (model != null) model.Save();
 
                 foreach (var w in Windows.ToArray())
@@ -74,13 +69,12 @@ namespace GVNotifier
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             this.Try(() => {
-                    // NOTE!  When we depoy with ClickOnce, we will be assigned an AppID!
-                    // do NOT attempt to set one manually, because it will break and cause a LOT
-                    // of confusion!
-                    // TaskbarManager.Instance.ApplicationId = "GVNotifier.1";
-                    windowsTaskbar = TaskbarManager.Instance;
-                    Debug.WriteLine("AppUserModelID: " + windowsTaskbar.ApplicationId);
-                });
+                // As part of ClickOnce deployment, an AppuserModelID is assigned to this process.
+                // When debugging or starting the process directly, the AUMID will not be set.
+                // Setting the AUMID twice in the ClickOnce context will cause an error.
+                windowsTaskbar = TaskbarManager.Instance;
+                Debug.WriteLine("AppUserModelID: " + windowsTaskbar.ApplicationId);
+            });
             try
             {
                 ResetJumpList();
@@ -149,23 +143,7 @@ namespace GVNotifier
             {
                 Trace.Write("MainWindow_Loaded: " + ex);
             }
-
-            HwndSource src = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle); 
-            src.AddHook(new HwndSourceHook(WndProc));
         }
-
-        public IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            /*
-            const int WM_DWMNCRENDERINGCHANGED = 0x031E;
-            if (msg == WM_DWMNCRENDERINGCHANGED)
-            {
-                DavuxLib2.Platform.DwmApi.DwmExtendFrameIntoClientArea(this, new Thickness(0, gLoginTop.ActualHeight * this.GetDPI(), 0, 1 + (bottomPanel.ActualHeight * this.GetDPI())));
-            }
-            */
-            return IntPtr.Zero;
-        }
-
         #endregion
 
         public MessageWindow WindowForContact(GoogleVoice.Contact contact)
@@ -246,6 +224,7 @@ namespace GVNotifier
                     */
 
                     Title = "GVNotifier";
+                    SizeToContent = System.Windows.SizeToContent.Width;
                     LoggedInPage.Visibility = System.Windows.Visibility.Visible;
                     LoginPage.Visibility = System.Windows.Visibility.Hidden;
                     this.FadeToTransparent(LoginPage.Name);
@@ -297,9 +276,10 @@ namespace GVNotifier
 
             lblStatus.Text = "Waiting...";
             lblStatus.Visibility = System.Windows.Visibility.Visible;
-            // gpLoginBox.Header = "";
 
-            // TODO still not right for loading a window above
+            // This does not still reliably steal foreground and activate the window.
+            // However, this may be a platform limitation as the current process does
+            // not have permission to steal foreground.
             model.OnJumpListContact += (c) =>
             {
                 this.Invoke(() =>
@@ -333,7 +313,6 @@ namespace GVNotifier
 
         void SyncContactsJumpList()
         {
-            
             foreach (var c in model.Contacts.ToArray())
             {
                 if (c.Group == "Favorites")
@@ -436,14 +415,8 @@ namespace GVNotifier
             try
             {
                 JumpList jumpList = JumpList.CreateJumpList();
-                jumpList.JumpListItemsRemoved += (ss, ee) =>
-                    {
-                        
-                    };
-                foreach (var x in jumpList.RemovedDestinations)
-                {
-
-                }
+                jumpList.JumpListItemsRemoved += (ss, ee) => { };
+                foreach (var x in jumpList.RemovedDestinations) { }
 
                 OfflineJumpList(ref jumpList);
                 jumpList.Refresh();
@@ -456,18 +429,11 @@ namespace GVNotifier
 
         private void ClearJumpList()
         {
-            
             try
             {
                 JumpList jumpList = JumpList.CreateJumpList();
-                jumpList.JumpListItemsRemoved += (ss, ee) =>
-                {
-
-                };
-                foreach (var x in jumpList.RemovedDestinations)
-                {
-
-                }
+                jumpList.JumpListItemsRemoved += (ss, ee) => { };
+                foreach (var x in jumpList.RemovedDestinations) { }
                 jumpList.Refresh();
             }
             catch (Exception ex)
@@ -485,14 +451,14 @@ namespace GVNotifier
             // any harm.
 
             //column.Width = double.MaxValue;
-            /*
+           
             if (double.IsNaN(column.Width))
             {
                     column.Width = column.ActualWidth;
             }
             column.Width = double.NaN;
-            */
-            column.Width = 9999;
+            
+           // column.Width = 9999;
         }
 
         void model_OnMessage(GoogleVoice.Message msg, GoogleVoice.Contact contact)
@@ -511,8 +477,8 @@ namespace GVNotifier
             this.Invoke(() =>
             {
                 var mw = WindowForContact(contact);
+                // ShowActivated may crash on XP.
                 this.Try( () => mw.ShowActivated = false);
-                 // crashes on xp?? TODO FIXME: what?
                 if (!mw.Ready)
                     mw.Show();
                 mw.AddMessage(msg);
@@ -520,7 +486,6 @@ namespace GVNotifier
         }
 
         #region Message Click
-
         private void Contact_Click(object sender, MouseButtonEventArgs e)
         {
             try
@@ -531,20 +496,17 @@ namespace GVNotifier
 
                 this.InvokeDelay(100, () =>
                 {
-
-                        this.Try( () =>mw.ShowActivated = true);
-
+                    this.Try(() => mw.ShowActivated = true);
                     mw.Show();
                     mw.Activate();
                 });
                 lsvContacts.SelectedIndex = -1;
                 txtSearch.Focus();
                 if (Settings.Get("HideAfterSelect", false)) DoHide();
-
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Main/Contact_Click *** " + ex);
+                Trace.WriteLine("Main/Contact_Click *** " + ex);
             }
         }
 
@@ -552,8 +514,7 @@ namespace GVNotifier
         {
             try
             {
-                CallMessage ct = lsvCalls.SelectedItem as CallMessage;
-                Debug.Assert(ct != null);
+                var ct = (CallMessage)lsvCalls.SelectedItem;
                 var mw = WindowForContact(ct.Contact);
 
                 this.InvokeDelay(100, () =>
@@ -566,7 +527,7 @@ namespace GVNotifier
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Main/Call_Click *** " + ex);
+                Trace.WriteLine("Main/Call_Click *** " + ex);
             }
         }
 
@@ -580,7 +541,7 @@ namespace GVNotifier
 
                 this.InvokeDelay(100, () =>
                 {
-                    this.Try( () => mw.ShowActivated = true);
+                    this.Try(() => mw.ShowActivated = true);
                     mw.Show();
                     mw.Activate();
                 });
@@ -591,11 +552,9 @@ namespace GVNotifier
                 Debug.WriteLine("Main/Voicemail_Click *** " + ex);
             }
         }
-
         #endregion
 
         #region Search
-
         int search_int = 0;
         bool search_updating = false;
 
@@ -671,12 +630,9 @@ namespace GVNotifier
                 Hide();
             */
         }
-
-
         #endregion
 
         #region Pinning
-
         private void mnuContactsList_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
             GoogleVoice.Contact c = lsvContacts.SelectedItem as GoogleVoice.Contact;
@@ -705,15 +661,7 @@ namespace GVNotifier
             GoogleVoice.Contact c = lsvContacts.SelectedItem as GoogleVoice.Contact;
             if (c != null)
             {
-                if (c.Group == "Favorites")
-                {
-                    c.Group = "Other Contacts";
-                }
-                else
-                {
-                    c.Group = "Favorites";
-                }
-
+                c.Group = (c.Group == "Favorites") ? "Other Contacts" : "Favorites";
                 lsvContacts.ItemsSource = model.Contacts;
                 txtSearch.Text = "";
 
@@ -725,9 +673,7 @@ namespace GVNotifier
                 });
             }
         }
-
         #endregion
-
 
         #region Application Crash handling
         delegate void ProcessUnhandledExceptionDelegate(Exception ex);
@@ -879,7 +825,6 @@ namespace GVNotifier
             txtSearch.Focus();
             lsvCalls.SelectedIndex = -1;
         }
-
         #endregion
 
         private void FitColumn(ListView view, GridViewColumn col)
@@ -898,14 +843,13 @@ namespace GVNotifier
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            this.Try(() => System.Diagnostics.Process.Start("http://daveamenta.com"));
+            var a = new About();
+            a.ShowDialog();
         }
 
         private Button lastPlayButton = null;
-
         private void PlayPause_Click(object sender, RoutedEventArgs e)
         {
-
             Button c = sender as Button;
             lastPlayButton = c;
             var vm = c.Tag as VoiceMessage;
@@ -948,11 +892,9 @@ namespace GVNotifier
 
         private void vmProgress_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            // TODO why is seeking disabled?  I thought this worked
-
-            //var p = sender as ProgressBar;
-            //Debug.WriteLine("Seek: " + p.Value + " of " + VmPlayer.Length);
-            //VmPlayer.Seek((int)p.Value);
+            var p = sender as ProgressBar;
+            Debug.WriteLine("Seek: " + p.Value + " of " + VmPlayer.Length);
+            VmPlayer.Seek((int)p.Value);
         }
 
         private void lsvVM_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -963,7 +905,6 @@ namespace GVNotifier
                 lastPlayButton.Content = "Play";
             VmPlayerString = "";
         }
-
 
         private AudioPlayer VmPlayer = new AudioPlayer();
 
@@ -977,8 +918,6 @@ namespace GVNotifier
         public static readonly DependencyProperty VmPlayerPositionProperty =
             DependencyProperty.Register("VmPlayerPosition", typeof(int), typeof(MainWindow), new UIPropertyMetadata(0));
 
-
-
         public int VmPlayerMax
         {
             get { return (int)GetValue(VmPlayerMaxProperty); }
@@ -988,8 +927,6 @@ namespace GVNotifier
         // Using a DependencyProperty as the backing store for VmPlayerMax.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty VmPlayerMaxProperty =
             DependencyProperty.Register("VmPlayerMax", typeof(int), typeof(MainWindow), new UIPropertyMetadata(0));
-
-
 
         public string VmPlayerString
         {
@@ -1010,8 +947,6 @@ namespace GVNotifier
             {
                 VmPlayerMax = m;
                 VmPlayerPosition = v;
-
-
                 VmPlayerString = TimeSpan.FromMilliseconds(v).Minutes.ToString() + string.Format(":{0:00}", TimeSpan.FromMilliseconds(v).Seconds)
                     + " of " + TimeSpan.FromMilliseconds(m).Minutes.ToString() + string.Format(":{0:00}", TimeSpan.FromMilliseconds(m).Seconds);
             };
@@ -1027,12 +962,7 @@ namespace GVNotifier
         private void Hyperlink_RequestNavigate_1(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
             Preferences p = new Preferences();
-            p.Show();
-        }
-
-        private void Window_LostFocus(object sender, RoutedEventArgs e)
-        {
-            
+            p.ShowDialog();
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
@@ -1047,18 +977,17 @@ namespace GVNotifier
 
         private void selfwin_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape)
-                DoHide();
+            if (e.Key == Key.Escape) DoHide();
         }
-
-
     }
 
     #region Value Converters
     public sealed class ImageConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType,
-                              object parameter, CultureInfo culture)
+        public object Convert(object value, 
+                              Type targetType,
+                              object parameter, 
+                              CultureInfo culture)
         {
             if (string.IsNullOrEmpty((string)value)) return new BitmapImage(new Uri("pack://application:,,,/GVNotifier.net;component/Images/blank.png"));
             try
@@ -1071,19 +1000,21 @@ namespace GVNotifier
             }
         }
 
-        public object ConvertBack(object value, Type targetType,
-                                  object parameter, CultureInfo culture)
+        public object ConvertBack(object value, 
+                                  Type targetType,
+                                  object parameter, 
+                                  CultureInfo culture)
         {
             throw new NotImplementedException();
         }
     }
 
-    // BooleanToVisibilityConverter
-
     public sealed class BooleanToVisibilityConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType,
-                              object parameter, CultureInfo culture)
+        public object Convert(object value, 
+                              Type targetType,
+                              object parameter, 
+                              CultureInfo culture)
         {
             bool? IsSelected = value as bool?;
 

@@ -29,7 +29,7 @@ namespace GVNotifier
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            this.Try(() => System.Diagnostics.Process.Start("http://daveamenta.com/"));
+            this.Try(() => System.Diagnostics.Process.Start((sender as Hyperlink).NavigateUri.ToString()));
         }
     }
 }

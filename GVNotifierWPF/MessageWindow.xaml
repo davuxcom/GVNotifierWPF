@@ -12,14 +12,8 @@
         GotFocus="Window_GotFocus"
         PreviewKeyDown="Window_PreviewKeyDown"
         Closing="Window_Closing"
-        Title="" Height="300" Width="300"
-        >
-    <!--
-    <Window.Resources>
-        <ResourceDictionary Source="/PresentationFramework.Aero, Version=3.0.0.0, Culture=neutral, 
-    PublicKeyToken=31bf3856ad364e35, ProcessorArchitecture=MSIL;component/themes/aero.normalcolor.xaml" />
-    </Window.Resources>
-    -->
+        Title=""
+        SizeToContent="WidthAndHeight">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -31,64 +25,18 @@
         <Grid Grid.Row="0">
             <Grid Name="grdTopColor" Visibility="Collapsed" Background="Black">
                 <Grid>
-                    <!--
-                <Grid.Background>
-                    <DrawingBrush >
-                        <DrawingBrush.Drawing>
-                            <DrawingGroup>
-                                <GeometryDrawing>
-                                    <GeometryDrawing.Geometry>
-                                        <GeometryGroup>
-                                            <RectangleGeometry Rect="0,0,1,1" />
-                                        </GeometryGroup>
-                                    </GeometryDrawing.Geometry>
-                                    <GeometryDrawing.Brush>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                            <GradientStop Offset="0.0" Color="#aaffffff" />
-                                            <GradientStop Offset="0.1" Color="#aaffffff" />
-                                            <GradientStop Offset="0.5" Color="#66ffffff" />
-                                            <GradientStop Offset="0.5" Color="#11666666" />
-                                            <GradientStop Offset="0.6" Color="Transparent" />
-                                            <GradientStop Offset="0.97" Color="#55ffffff" />
-                                                <GradientStop Offset="1.0" Color="Black" />
-                                            </LinearGradientBrush>
-                                    </GeometryDrawing.Brush>
-                                </GeometryDrawing>
-                                <GeometryDrawing>
-                                    <GeometryDrawing.Geometry>
-                                        <GeometryGroup>
-                                            <RectangleGeometry Rect="0,0,1,1" />
-                                        </GeometryGroup>
-                                    </GeometryDrawing.Geometry>
-                                    <GeometryDrawing.Brush>
-                                        <LinearGradientBrush StartPoint="1,1" EndPoint="0,1">
-                                            <GradientStop Offset="1.0" Color="#55444444" />
-                                            <GradientStop Offset="0.0"  Color="Transparent" />
-                                        </LinearGradientBrush>
-                                    </GeometryDrawing.Brush>
-                                </GeometryDrawing>
-                            </DrawingGroup>
-                        </DrawingBrush.Drawing>
-                    </DrawingBrush>
-                </Grid.Background>
-                    -->
-                <Label Name="lblTop"
-                   
-                   VerticalAlignment="Center"
+                    <Label Name="lblTop"
+                       VerticalAlignment="Center"
                        FontWeight="SemiBold"
                        Foreground="White"
-                     
                        Margin="0"
                        Padding="8,2,4,2"
-
-                   >No History</Label>
-                    <!--                        Cursor="Hand"
-                       MouseLeftButtonUp="lblTop_MouseLeftButtonUp"-->
+                       Content="No History" />
                 </Grid>
             </Grid>
         </Grid>
 
-        <WindowsFormsHost Name="webHost" PreviewKeyDown="webHost_PreviewKeyDown" Grid.Row="1" >
+        <WindowsFormsHost MinHeight="100" Name="webHost" PreviewKeyDown="webHost_PreviewKeyDown" Grid.Row="1" >
             <wf:WebBrowser x:Name="web" />
         </WindowsFormsHost>
         
@@ -105,26 +53,51 @@
                     VerticalScrollBarVisibility="Auto"
                  HorizontalScrollBarVisibility="Disabled"
                  />
-        <ProgressBar Visibility="Collapsed" Name="pgrSMS" MaxHeight="5" Margin="0" Padding="0" Grid.Row="3" Maximum="160" Value="0" BorderThickness="0" />
-        <DockPanel Grid.Row="4" LastChildFill="True">
-            <Button Name="btnCall" VerticalAlignment="Center" Click="btnCall_Click" Content="Call" Margin="4" Padding="8,0,8,0" DockPanel.Dock="Left" />
-            <Button Name="btnSend" VerticalAlignment="Center" Click="btnSend_Click" IsEnabled="False" Content="Send" Margin="4" Padding="8,0,8,0" DockPanel.Dock="Right" />
-            <Grid>
-                <Label Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="SemiBold" Foreground="Black" Name="lblNumber" MouseEnter="Label_MouseEnter">
-                    123-456-7890
-                    <Label.BitmapEffect>
-                        <OuterGlowBitmapEffect GlowColor="#ccFFFFFF" GlowSize="7"></OuterGlowBitmapEffect>
-                    </Label.BitmapEffect>
-                </Label>
-                   
+        <ProgressBar Visibility="Visible" Name="pgrSMS" Height="2" Margin="0" Padding="0" Grid.Row="3" Maximum="160" Value="0" BorderThickness="0" />
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" 
+                    Name="btnCall" 
+                    VerticalAlignment="Center" 
+                    Click="btnCall_Click" 
+                    Content="Call" 
+                    Margin="4" 
+                    Padding="8,0,8,0" />
+            <Button Grid.Column="2" 
+                    Name="btnSend" 
+                    VerticalAlignment="Center" 
+                    Click="btnSend_Click" 
+                    IsEnabled="False" 
+                    Content="Send" 
+                    Margin="4" 
+                    Padding="8,0,8,0" 
+                    DockPanel.Dock="Right" />
+            <Grid Grid.Column="1">
+                <!-- TODO this is an accessibility issue that needs to be resolved -->
+                <!-- The ComboBox is only visible to UIA when it is in the visual tree -->
+                <!-- And the label doesn't support any invoke to trigger the combo box -->
+                <Label Margin="0" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Bottom" 
+                       FontWeight="SemiBold" 
+                       Foreground="Black" 
+                       Name="lblNumber" 
+                       Content="000-000-0000"
+                       MouseEnter="Label_MouseEnter" />
                 <ComboBox MouseLeave="cboNumbers_MouseLeave" 
                           Visibility="Hidden" 
                           Name="cboNumbers"
-                           
+                          VerticalContentAlignment="Center"
                           HorizontalAlignment="Center"
                           VerticalAlignment="Bottom"
-                          Text="(555) 123-4567 (Work)" />
+                          Text="000-000-0000" />
             </Grid>
-        </DockPanel>
+        </Grid>
     </Grid>
 </Window>
