@@ -160,7 +160,7 @@ namespace GVNotifier
 
         private void Window_SourceInitialized(object sender, EventArgs e)
         {
-            DavuxLib2.Platform.DwmApi.DwmExtendFrameIntoClientArea (this, new Thickness(0, 0, 0, 26 * this.GetDPI()));
+           // DavuxLib2.Platform.DwmApi.DwmExtendFrameIntoClientArea (this, new Thickness(0, 0, 0, 26 * this.GetDPI()));
 
             web.AllowWebBrowserDrop = false;
             
@@ -222,10 +222,12 @@ namespace GVNotifier
 
         public IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+            /*
             if (msg == 0x031E)  // WM_DWMCOMPOSITIONCHANGED 
             {
                 DavuxLib2.Platform.DwmApi.DwmExtendFrameIntoClientArea(this, new Thickness(0, 0, 0, 26 * this.GetDPI()));
             }
+            */
             return IntPtr.Zero;
         }
 

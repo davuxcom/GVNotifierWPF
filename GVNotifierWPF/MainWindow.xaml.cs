@@ -100,7 +100,7 @@ namespace GVNotifier
         {
             try
             {
-                DavuxLib2.Platform.DwmApi.DwmExtendFrameIntoClientArea (this, new Thickness(0, gLoginTop.ActualHeight * this.GetDPI(), 0, 0));
+                //DavuxLib2.Platform.DwmApi.DwmExtendFrameIntoClientArea (this, new Thickness(0, gLoginTop.ActualHeight * this.GetDPI(), 0, 0));
 
                 SessionModel.AppClosing += () => this.Invoke(() => Window_Closing(null, null));
                 SessionModel.PrefsRequest += () => this.Invoke(() =>
@@ -156,11 +156,13 @@ namespace GVNotifier
 
         public IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+            /*
             const int WM_DWMNCRENDERINGCHANGED = 0x031E;
             if (msg == WM_DWMNCRENDERINGCHANGED)
             {
                 DavuxLib2.Platform.DwmApi.DwmExtendFrameIntoClientArea(this, new Thickness(0, gLoginTop.ActualHeight * this.GetDPI(), 0, 1 + (bottomPanel.ActualHeight * this.GetDPI())));
             }
+            */
             return IntPtr.Zero;
         }
 
@@ -255,7 +257,7 @@ namespace GVNotifier
                     this.Try(() => windowsTaskbar.SetProgressState(TaskbarProgressBarState.Normal));
 
                     SelectedView = lsvContacts;
-                    DavuxLib2.Platform.DwmApi.DwmExtendFrameIntoClientArea(this, new Thickness(0, gLoginTop.ActualHeight * this.GetDPI(), 0, 1 + (bottomPanel.ActualHeight * this.GetDPI())));
+                    //DavuxLib2.Platform.DwmApi.DwmExtendFrameIntoClientArea(this, new Thickness(0, gLoginTop.ActualHeight * this.GetDPI(), 0, 1 + (bottomPanel.ActualHeight * this.GetDPI())));
 
                     model.account.Ready += () => this.Invoke(() => FitColumn(lsvVM, lsvNameColVM));
                 });
