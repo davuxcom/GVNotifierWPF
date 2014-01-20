@@ -363,39 +363,15 @@ namespace GVNotifier
 
                     if (DavuxLib2.App.IsAllowedToExecute(LicensingMode.Free) != LicenseValidity.OK)
                     {
-                        Trace.WriteLine("WARNING: Software is not licensed.");
-
-                        // Because I'm a nice guy. ;)
-                        // Environment.Exit(0);
+                        Trace.WriteLine("Info: Software could not be properly licensed.");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Trace.Write("IsAllowedToExecute: " + ex);
+                    Trace.WriteLine("IsAllowedToExecute: " + ex);
                 }
 
                 DavuxLib2.App.SubmitCrashReports();
-
-                /*
-                if (!Registration.CanExecuteEx("GVNotifier", "", true))
-                {
-                    Environment.Exit(0);
-                }
-                */
-
-
-                new Thread(() =>
-                    {
-                        Thread.Sleep(1000 * 60);
-                        ReduceMemory();
-                        
-                        while (true)
-                        {
-                            Thread.Sleep(1000 * 60 * 10);
-                            ReduceMemory();
-                        }
-                    }).Start();
-
 
                 GVNotifier.App app = new GVNotifier.App();
                 app.InitializeComponent();
@@ -406,25 +382,6 @@ namespace GVNotifier
                 System.Windows.Forms.MessageBox.Show(ex.ToString());
             }
         }
-
-
-        private static void ReduceMemory()
-        {
-            try
-            {
-                GC.Collect(GC.MaxGeneration);
-                GC.WaitForPendingFinalizers();
-                SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle,
-              (UIntPtr)0xFFFFFFFF, (UIntPtr)0xFFFFFFFF);
-            }
-            catch (Exception) { }
-        }
-
-        [DllImport("kernel32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetProcessWorkingSetSize(IntPtr process,
-            UIntPtr minimumWorkingSetSize, UIntPtr maximumWorkingSetSize);
-
 
         private static void DefaultSettings()
         {
