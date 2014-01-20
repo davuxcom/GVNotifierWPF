@@ -309,24 +309,6 @@ namespace GVNotifier
                 }
 
                 new Thread(() =>
-                    {
-                        try
-                        {
-                            string oldDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GVNotifier");
-                            Trace.WriteLine("Old Directory Check: " + oldDir);
-                            if (Directory.Exists(oldDir))
-                            {
-                                Trace.WriteLine("Removing Old Directory");
-                                Directory.Delete(oldDir, true);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Trace.WriteLine("Couldn't delete old directory: " + ex.Message);
-                        }
-                    }).Start();
-
-                new Thread(() =>
                 {
                     Trace.WriteLine("Starting Pipe Server");
                     int t = 0;
