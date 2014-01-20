@@ -409,8 +409,6 @@ namespace GVNotifier
             {
                 // We ship the chime sound with the software, but it gets copied into
                 // the AppData directory so the user can change it if they like.
-                // TODO what happens when DataDirectory is portable, and we try and copy
-                // new.wav on top of new.wav?
                 if (!File.Exists(DavuxLib2.App.DataDirectory + "\\new.wav"))
                 {
                     File.Copy("new.wav", DavuxLib2.App.DataDirectory + "\\new.wav");
@@ -427,19 +425,17 @@ namespace GVNotifier
         {
             if (Environment.OSVersion.Version.Major > 6)
             {
-                // 7.0 and higher
-                return false;
+                return false; // Future NT7
             }
             else if (Environment.OSVersion.Version.Major == 6 &&
                 Environment.OSVersion.Version.Minor > 0)
             {
                 // Not Windows Vista aka 6.0
-                // Windows 7 (6.1) and Windows 8 (6.2)
                 return false;
             }
             else
             {
-                // Windows < 6.1
+                // Windows XP/Vista
                 return true;
             }
         }
@@ -450,14 +446,13 @@ namespace GVNotifier
             {
                 if (Inst != null && line.StartsWith("/jump:"))
                 {
-                    line = line.Substring(6);
+                    line = line.Substring("/jump:".Length);
                     int code = int.Parse(line);
 
                     if (Inst.OnJumpListContact != null)
                     {
-                        Inst.OnJumpListContact(
-                            Inst.Contacts.First(c => c.ID.GetHashCode() == code)
-                            );
+                        Inst.OnJumpListContact(Inst.Contacts.First(
+                            c => c.ID.GetHashCode() == code));
                     }
                 }
                 else if (line.Trim() == "/prefs")
@@ -501,6 +496,10 @@ namespace GVNotifier
                 {
                     Trace.WriteLine("Update Contacts");
                     UpdateContacts();
+                }
+                else
+                {
+                    Debug.Assert(false);
                 }
             }
             catch (Exception ex)
