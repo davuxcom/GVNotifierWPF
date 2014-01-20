@@ -553,6 +553,7 @@
                                               Grid.Column="0" 
                                               Name="chkAutoLogin" 
                                               HorizontalAlignment="Left" 
+                                              VerticalAlignment="Center"
                                               VerticalContentAlignment="Center" 
                                               Padding="6,0,6,0">Auto Login</CheckBox>
                                     <Button Name="btnLogin" 
