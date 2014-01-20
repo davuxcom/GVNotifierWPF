@@ -224,7 +224,7 @@ namespace GVNotifier
                     */
 
                     Title = "GVNotifier";
-                    SizeToContent = System.Windows.SizeToContent.Width;
+                    SizeToContent = System.Windows.SizeToContent.Manual;
                     LoggedInPage.Visibility = System.Windows.Visibility.Visible;
                     LoginPage.Visibility = System.Windows.Visibility.Hidden;
                     this.FadeToTransparent(LoginPage.Name);
@@ -778,7 +778,7 @@ namespace GVNotifier
             btnCallView.Tag = "Inactive";
             btnContactsView.Tag = "Active";
             btnVoicemailView.Tag = "Inactive";
-            txtSearchPrompt.Text = "Search Contacts and Numbers";
+            txtSearchPrompt.Text = "Search Names and Numbers";
             ResizeGridViewColumn(lsvNameCol);
             SelectedView = lsvContacts;
             txtSearch.Text = "";

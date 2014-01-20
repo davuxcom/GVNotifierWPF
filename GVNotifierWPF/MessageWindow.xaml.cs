@@ -57,8 +57,6 @@ namespace GVNotifier
                 {
                     // 5/5/12: Open links in default browser
                     ((SHDocVw.DWebBrowserEvents2_Event)web.ActiveXInstance).NewWindow3 += web_NewWindow3;
-
-                    SizeToContent = System.Windows.SizeToContent.Manual;
                 };
         }
 
@@ -170,6 +168,7 @@ namespace GVNotifier
             {
                 //web.Document.Body.InnerHtml = "<span style='font-family: " + Settings.Get("ViewFontFamily", "Verdana") + "; font-size: " + Settings.Get("ViewFontSize", 10) + "pt;'>";
                 SetHTMLFont();
+                SizeToContent = System.Windows.SizeToContent.Manual;
             };
             web.Navigate("about:blank");
             web.Document.ContextMenuShowing += (ss, ee) =>

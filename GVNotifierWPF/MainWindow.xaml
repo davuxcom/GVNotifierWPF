@@ -239,35 +239,30 @@
         <Grid Name="LoggedInPage" Visibility="Hidden">
             <DockPanel LastChildFill="True">
                 <Grid DockPanel.Dock="Top" Margin="0">
-                    <Border BorderBrush="#40FFFFFF" BorderThickness="1" CornerRadius="2">
-                        <Border BorderBrush="#80000000" BorderThickness="1,1,0,0" CornerRadius="2">
-                            <Border BorderBrush="#30000000" BorderThickness="0,0,1,1" CornerRadius="2">
-                                <Border BorderBrush="#F0FFFFFF" BorderThickness="1" CornerRadius="1">
-                                    <Grid Name="grdSerch" Background="#C0FFFFFF">
-                                        <TextBlock Foreground="Gray" 
-                                                   Name="txtSearchPrompt" 
-                                                   Margin="4" 
-                                                   FontStyle="Italic">
-                                            Search Names and Numbers
-                                        </TextBlock>
-                                        <TextBox Style="{StaticResource OT}" 
-                                                 PreviewKeyDown="txtSearch_KeyDown" 
-                                                 KeyDown="txtSearch_KeyDown"   
-                                                 BorderThickness="0" 
-                                                 Name="txtSearch" 
-                                                 TextChanged="txtSearch_TextChanged">
-                                            <TextBox.Background>
-                                                <ImageBrush Stretch="None" 
-                                                            AlignmentX="Right" 
-                                                            AlignmentY="Center" 
-                                                            ImageSource="/GVNotifier.net;component/Images/search.png" />
-                                            </TextBox.Background>
-                                        </TextBox>
-                                    </Grid>
-                                </Border>
-                            </Border>
-                        </Border>
-                    </Border>
+                    <Grid Name="grdSerch" Background="#C0FFFFFF">
+                        <TextBlock Foreground="Gray" 
+                                   Name="txtSearchPrompt" 
+                                   Margin="4" 
+                                   FontWeight="Light"
+                                   FontStyle="Italic">
+                            Search Names and Numbers
+                        </TextBlock>
+                        <TextBox Style="{StaticResource OT}" 
+                                    PreviewKeyDown="txtSearch_KeyDown" 
+                                    KeyDown="txtSearch_KeyDown"   
+                                    BorderThickness="0" 
+                                    Margin="4"
+                                    Padding="0"
+                                    Name="txtSearch" 
+                                    TextChanged="txtSearch_TextChanged">
+                            <TextBox.Background>
+                                <ImageBrush Stretch="None" 
+                                            AlignmentX="Right" 
+                                            AlignmentY="Center" 
+                                            ImageSource="/GVNotifier.net;component/Images/search.png" />
+                            </TextBox.Background>
+                        </TextBox>
+                    </Grid>
                 </Grid>
                 <Border DockPanel.Dock="Bottom"  Name="bottomPanel" SnapsToDevicePixels="True" Margin="0" Padding="0"  BorderThickness="0,0,0,0" BorderBrush="Gray">
                     <Grid SnapsToDevicePixels="True" Margin="0" Grid.Row="0" Name="stkMenu">

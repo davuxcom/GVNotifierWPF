@@ -1,26 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Text.RegularExpressions;
+﻿using DavuxLib2;
 using DavuxLib2.Extensions;
-using DavuxLib2;
-using System.IO;
+using System;
 using System.Diagnostics;
-using System.Threading;
+using System.Windows;
+using System.Windows.Input;
 
 namespace GVNotifier
 {
-    /// <summary>
-    /// Interaction logic for Preferences.xaml
-    /// </summary>
     public partial class Preferences : Window
     {
         public Preferences()
@@ -77,7 +63,7 @@ namespace GVNotifier
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            this.Try(() => System.Diagnostics.Process.Start("http://daveamenta.com"));
+           this.Try(() => System.Diagnostics.Process.Start(DavuxLib2.App.DataDirectory));
         }
 
         private void Window_SourceInitialized(object sender, EventArgs e)

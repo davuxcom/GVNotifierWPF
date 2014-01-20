@@ -68,7 +68,7 @@
                             <TextBlock DockPanel.Dock="Left"
                                    Margin="24, 4, 4, 4"
                                    VerticalAlignment="Center">
-                            <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="http://www.daveamenta.com">Help and Support</Hyperlink>
+                            <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="%LocalAppData%\GVNotifierWPF">Open data directory</Hyperlink>
                             </TextBlock>
                             <Button Name="btnCancel" Click="btnCancel_Click" Margin="4" Padding="4" DockPanel.Dock="Right" HorizontalAlignment="Right" Content="Cancel" IsCancel="True" />
                             <Button Name="btnOK" Click="btnOK_Click" Margin="4" Padding="4" DockPanel.Dock="Right" HorizontalAlignment="Right" Content="Apply" />

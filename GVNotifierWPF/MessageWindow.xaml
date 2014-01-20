@@ -23,7 +23,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Name="border" 
-                        BorderThickness="1"
+                        BorderThickness="0"
                         Padding="4,2" 
                         BorderBrush="DarkGray" 
                         CornerRadius="3" 
