@@ -31,8 +31,8 @@
     <ProductName>GVNotifier</ProductName>
     <PublisherName>Dave Amenta</PublisherName>
     <MinimumRequiredVersion>1.4.0.148</MinimumRequiredVersion>
-    <ApplicationRevision>199</ApplicationRevision>
-    <ApplicationVersion>1.4.3.199</ApplicationVersion>
+    <ApplicationRevision>200</ApplicationRevision>
+    <ApplicationVersion>1.4.3.200</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
