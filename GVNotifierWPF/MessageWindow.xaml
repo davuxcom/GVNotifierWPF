@@ -1,9 +1,10 @@
-﻿<Window x:Class="GVNotifier.MessageWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:my="clr-namespace:GVNotifier"
-        my:WindowPos.Save="False"
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"  
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="GVNotifier.MessageWindow"
+        my:WindowPos.Save="False"  
         SourceInitialized="Window_SourceInitialized"
         Icon="/GVNotifier.net;component/Images/gv_xp.ico"
         FontFamily="Segoe UI, Verdana"
@@ -13,7 +14,32 @@
         PreviewKeyDown="Window_PreviewKeyDown"
         Closing="Window_Closing"
         Title=""
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight" d:DesignWidth="514.03">
+    <Window.Resources>
+        <Style x:Key="SimpleButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        BorderThickness="1"
+                        Padding="4,2" 
+                        BorderBrush="DarkGray" 
+                        CornerRadius="3" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Black" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -23,80 +49,83 @@
             <RowDefinition Height="Auto" MinHeight="20" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Grid Name="grdTopColor" Visibility="Collapsed" Background="Black">
+            <Grid x:Name="grdTopColor" Visibility="Collapsed" Background="Black">
                 <Grid>
-                    <Label Name="lblTop"
-                       VerticalAlignment="Center"
-                       FontWeight="SemiBold"
-                       Foreground="White"
-                       Margin="0"
-                       Padding="8,2,4,2"
-                       Content="No History" />
+                    <Label x:Name="lblTop"
+						VerticalAlignment="Center"
+						FontWeight="SemiBold"
+						Foreground="White"
+						Margin="0"
+						Padding="8,2,4,2"
+						Content="No History" />
                 </Grid>
             </Grid>
         </Grid>
 
-        <WindowsFormsHost MinHeight="100" Name="webHost" PreviewKeyDown="webHost_PreviewKeyDown" Grid.Row="1" >
+        <WindowsFormsHost MinHeight="100" x:Name="webHost" PreviewKeyDown="webHost_PreviewKeyDown" Grid.Row="1" >
             <wf:WebBrowser x:Name="web" />
         </WindowsFormsHost>
-        
-        <TextBox Grid.Row="2" 
-                 Name="txtInput" 
-                 SpellCheck.IsEnabled="True"
-                 TextChanged="txtInput_TextChanged" 
-                 MouseEnter="txtInput_MouseEnter" 
-                 PreviewKeyDown="txtInput_KeyDown" 
-                   TextWrapping="Wrap"
-                AcceptsReturn="True"
-                 MaxLines="4"
-                 Margin="4,0"
-                    VerticalScrollBarVisibility="Auto"
-                 HorizontalScrollBarVisibility="Disabled"
-                 />
-        <ProgressBar Visibility="Visible" Name="pgrSMS" Height="2" Margin="0" Padding="0" Grid.Row="3" Maximum="160" Value="0" BorderThickness="0" />
 
-        <Grid Grid.Row="4">
+        <TextBox Grid.Row="2" 
+			x:Name="txtInput" 
+			SpellCheck.IsEnabled="True"
+			TextChanged="txtInput_TextChanged" 
+			MouseEnter="txtInput_MouseEnter" 
+			PreviewKeyDown="txtInput_KeyDown" 
+			TextWrapping="Wrap"
+			AcceptsReturn="True"
+			MaxLines="4"
+			Margin="4,0"
+			VerticalScrollBarVisibility="Auto"
+			HorizontalScrollBarVisibility="Disabled"/>
+        <ProgressBar Visibility="Visible" x:Name="pgrSMS" Height="1" SnapsToDevicePixels="True" Background="Transparent" Margin="4, 0, 4, -1" Padding="0" Grid.Row="3" Maximum="160" Value="0" BorderThickness="0" />
+
+        <Grid Grid.Row="4" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" 
-                    Name="btnCall" 
-                    VerticalAlignment="Center" 
-                    Click="btnCall_Click" 
-                    Content="Call" 
-                    Margin="4" 
-                    Padding="8,0,8,0" />
+				x:Name="btnCall" 
+				VerticalAlignment="Center" 
+				Click="btnCall_Click" 
+				Content="Call" 
+				Margin="4" 
+				Padding="8,0,8,0" />
             <Button Grid.Column="2" 
-                    Name="btnSend" 
-                    VerticalAlignment="Center" 
-                    Click="btnSend_Click" 
-                    IsEnabled="False" 
-                    Content="Send" 
-                    Margin="4" 
-                    Padding="8,0,8,0" 
-                    DockPanel.Dock="Right" />
-            <Grid Grid.Column="1">
+				x:Name="btnSend" 
+				VerticalAlignment="Center" 
+				Click="btnSend_Click" 
+				IsEnabled="False" 
+				Content="Send" 
+				Margin="4" 
+				Padding="8,0,8,0" 
+				DockPanel.Dock="Right" />
+            <Grid Grid.Column="1" HorizontalAlignment="Stretch">
                 <!-- TODO this is an accessibility issue that needs to be resolved -->
                 <!-- The ComboBox is only visible to UIA when it is in the visual tree -->
                 <!-- And the label doesn't support any invoke to trigger the combo box -->
-                <Label Margin="0" 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Bottom" 
-                       FontWeight="SemiBold" 
-                       Foreground="Black" 
-                       Name="lblNumber" 
-                       Content="000-000-0000"
-                       MouseEnter="Label_MouseEnter" />
+                <Button Margin="0" 
+                        Style="{StaticResource SimpleButton}"
+					    HorizontalAlignment="Stretch" 
+					    VerticalAlignment="Center" 
+					    FontWeight="SemiBold" 
+					    Foreground="Black" 
+					    BorderThickness="0"
+					    Background="Transparent"
+					    x:Name="lblNumber" 
+					    Content="000-000-0000"
+					    Click="lblNumber_Click"
+					    MouseEnter="Label_MouseEnter" />
                 <ComboBox MouseLeave="cboNumbers_MouseLeave" 
-                          Visibility="Hidden" 
-                          Name="cboNumbers"
-                          VerticalContentAlignment="Center"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Bottom"
-                          Text="000-000-0000" />
+					      Visibility="Hidden" 
+					      x:Name="cboNumbers"
+					      VerticalContentAlignment="Center"
+					      HorizontalAlignment="Stretch"
+					      VerticalAlignment="Center"
+					      Text="000-000-0000" />
             </Grid>
         </Grid>
     </Grid>

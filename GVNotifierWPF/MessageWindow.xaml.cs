@@ -57,6 +57,8 @@ namespace GVNotifier
                 {
                     // 5/5/12: Open links in default browser
                     ((SHDocVw.DWebBrowserEvents2_Event)web.ActiveXInstance).NewWindow3 += web_NewWindow3;
+
+                    SizeToContent = System.Windows.SizeToContent.Manual;
                 };
         }
 
@@ -208,6 +210,7 @@ namespace GVNotifier
 
 
             lblNumber.Content = cboNumbers.Text = cboNumbers.Items[0].ToString();
+
             PopulateStatusBar();
 
             if (Contact.Note != null)
@@ -465,7 +468,7 @@ namespace GVNotifier
             else
                 pgrSMS.Foreground = Brushes.Red;
 
-            pgrSMS.Visibility = v > 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            //pgrSMS.Visibility = v > 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
 
             int num_additional_messages = v / 160;
             if (num_additional_messages > 0)
@@ -711,7 +714,12 @@ namespace GVNotifier
             // TODO this and activated and typeing and more?
             ClearNotify();
         }
-    }
 
-    
+        private void lblNumber_Click(object sender, RoutedEventArgs e)
+        {
+            lblNumber.Visibility = System.Windows.Visibility.Collapsed;
+            cboNumbers.Visibility = System.Windows.Visibility.Visible;
+            cboNumbers.Focus();
+        }
+    }
 }
