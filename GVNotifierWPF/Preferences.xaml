@@ -19,7 +19,7 @@
     </Window.Resources>
     <Grid>
         <ScrollViewer Name="scroller" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" DockPanel.Dock="Top">
-            <DockPanel MinWidth="400" MinHeight="300">
+            <DockPanel Margin="4" MinWidth="400" MinHeight="300">
                 <StackPanel Orientation="Vertical" Name="firstPage" DockPanel.Dock="Top">
                     <DockPanel DockPanel.Dock="Top">
                         <TextBlock Text="Settings"
@@ -54,7 +54,7 @@
                             </CheckBox>
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox Margin="16,0,16,0" Header="Alert me when..." DockPanel.Dock="Top">
+                    <GroupBox Margin="16,0,16,16" Header="Alert me when..." DockPanel.Dock="Top">
                         <StackPanel Orientation="Horizontal">
                             <CheckBox VerticalContentAlignment="Center" Name="ShowPlacedCall" Margin="5" Content="Placing a call" />
                             <CheckBox VerticalContentAlignment="Center" Name="ShowAcceptedCall" Margin="5" Content="Receiving a call" />

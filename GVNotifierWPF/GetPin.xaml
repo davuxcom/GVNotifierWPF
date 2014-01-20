@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Confirm verification code" 
         SizeToContent="WidthAndHeight">
-    <Grid>
+    <Grid Margin="4">
         <StackPanel Orientation="Vertical">
             <TextBlock Padding="4" 
                        TextAlignment="Center" 
