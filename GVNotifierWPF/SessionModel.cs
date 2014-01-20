@@ -66,6 +66,11 @@ namespace GVNotifier
             }
         }
 
+        public override string ToString()
+        {
+            return string.Format("voicemail from {1} at {2}", msg.Class, Contact.Name, Time.ToString());
+        }
+
         public GoogleVoice.Contact Contact { get; private set; }
         public GoogleVoice.Message Message { get { return msg; } }
         GoogleVoice.VoiceMailMessage msg = null;
@@ -125,6 +130,10 @@ namespace GVNotifier
         GoogleVoice.Message msg = null;
         public GoogleVoice.Message Message { get { return msg; } }
 
+        public override string ToString()
+        {
+            return string.Format("{0} call from {1} at {2}", msg.Class, Contact.Name, Time.ToString());
+        }
 
         public Message.MessageType MessageType
         {
