@@ -683,17 +683,26 @@ namespace GVNotifier
 
         static void Current_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            Trace.WriteLine("Unhandled dispatcher ex " + e.Exception);
-            // some of the exceptions being thrown by the CAG appear to be coming from separate threads so we'll protect ourselves
-            if (!Application.Current.Dispatcher.CheckAccess())
+            try
             {
-                // Unhandled exceptions on worker threads will halt the application. We want to
-                // use our global exception handler(s), so dispatch or "forward" to the UI thread.
-                Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new ProcessUnhandledExceptionDelegate(ProcessUnhandledException), e.Exception);
+                Trace.WriteLine("Unhandled dispatcher ex " + e.Exception);
+                // some of the exceptions being thrown by the CAG appear to be coming from separate threads so we'll protect ourselves
+                if (!Application.Current.Dispatcher.CheckAccess())
+                {
+                    // Unhandled exceptions on worker threads will halt the application. We want to
+                    // use our global exception handler(s), so dispatch or "forward" to the UI thread.
+                    Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new ProcessUnhandledExceptionDelegate(ProcessUnhandledException), e.Exception);
+                }
+                else
+                {
+                    ProcessUnhandledException(e.Exception);  // Already on UI thread; just rethrow the exception to global handlers
+                }
+                
             }
-            else
+            catch(IOException)
             {
-                ProcessUnhandledException(e.Exception);  // Already on UI thread; just rethrow the exception to global handlers
+                // When disk space is low, this could cause a second (uninteresting) crash.
+                // Nothing can be done to handle it here.
             }
             e.Handled = true;
         }
