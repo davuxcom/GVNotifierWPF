@@ -9,6 +9,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -63,7 +64,8 @@ namespace GVNotifier
                 // it might be impossible to ensure without a doubt that all threads have quit
                 // (even with a better controlled threading model) - so maybe as a last resort 
                 // this is okay.
-                new Thread(() => { Thread.Sleep(1500); Environment.Exit(0); }).Start();
+                Hide();
+                Task.Run(() => { Thread.Sleep(1500); Environment.Exit(0); });
             }
         }
 

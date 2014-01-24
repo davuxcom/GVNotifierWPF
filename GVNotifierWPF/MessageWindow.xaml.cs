@@ -18,6 +18,7 @@ using System.Diagnostics;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using System.Windows.Interop;
 using DavuxLib2;
+using System.Threading.Tasks;
 
 
 namespace GVNotifier
@@ -439,13 +440,13 @@ namespace GVNotifier
                 if (!update_ip)
                 {
                     update_ip = true;
-                    new Thread(() =>
-                        {
-                            Trace.WriteLine("Updating Account...");
-                            SessionModel.Inst.account.Update();
-                            Trace.WriteLine("Update Complete");
-                            update_ip = false;
-                        }).Start();
+                    Task.Run(() =>
+                    {
+                        Trace.WriteLine("Updating Account...");
+                        SessionModel.Inst.account.Update();
+                        Trace.WriteLine("Update Complete");
+                        update_ip = false;
+                    });
                 }
             }
             else if (e.Key == Key.Escape)
